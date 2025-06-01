@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Varta:wght@300;400&display=swap");
+
+:root {
+  /* Color Palette */
+  --text-primary: #a06056;
+  --text-secondary: #706458e5; /* Consider if alpha is always needed, or use rgba() for #706458 */
+  --bg-main: #f3eee8; /* Renamed from --bg-left-column for more global applicability */
+  --icon-color-primary: var(--text-primary);
+  --icon-color-secondary: var(--text-secondary);
+  --white: #ffffff;
+  --light-border-color: #eaeaea;
+  --soft-shadow-color: rgba(0, 0, 0, 0.08);
+
+  /* Fonts */
+  --font-serif: "Merriweather", serif;
+  --font-sans: "Varta", sans-serif;
+
+  /* You can add more global variables here for spacing, transitions, etc. */
+}
+
+/* Basic Body Reset and Default Styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans); /* Default body font */
+  background-color: var(--bg-main); /* Default background for the whole page */
+  color: var(--text-secondary); /* Default text color */
+  line-height: 1.6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Optional: Global link styling */
+a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline; /* Or a different hover style */
+}
+
+/* Optional: Basic heading styling */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  color: var(--text-primary);
+  margin-top: 0;
+}

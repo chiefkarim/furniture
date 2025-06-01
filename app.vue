@@ -1,6 +1,8 @@
 <template>
-  <div>
+  <div class="container">
     <AppHeader />
+
+    <FindYourRoom />
     <!-- You can add other page content below the header -->
     <!--
     <main>
@@ -17,6 +19,11 @@
 
 <style>
 /* Global styles if any - e.g., body reset */
+.container {
+  max-width: 1280px; /* ou ce que tu préfères */
+  margin: 0 auto;
+  position: relative;
+}
 body {
   margin: 0;
   padding: 0;
