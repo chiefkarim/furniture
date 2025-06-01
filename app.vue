@@ -3,6 +3,7 @@
     <AppHeader />
 
     <FindYourRoom />
+    <About />
     <!-- You can add other page content below the header -->
     <!--
     <main>
