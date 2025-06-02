@@ -1,5 +1,5 @@
 <template>
-  <header class="app-header">
+  <header class="container app-header">
     <div class="header-content-wrapper">
       <div class="hero-section">
         <div class="hero-left">

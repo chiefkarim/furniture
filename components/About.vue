@@ -1,51 +1,49 @@
 <template>
-  <section class="design-services-section">
-    <div class="container">
+  <section class="container design-services-section">
+    <div class="services-grid">
+      <div class="main-title-column">
+        <h1>
+          We stay by your<br />
+          side to design<br />
+          your projects
+        </h1>
+        <a href="#" class="find-out-more-link">
+          Find out more <span class="arrow">›</span>
+        </a>
+      </div>
+
       <div class="services-grid">
-        <div class="main-title-column">
-          <h1>
-            We stay by your<br />
-            side to design<br />
-            your projects
-          </h1>
-          <a href="#" class="find-out-more-link">
-            Find out more <span class="arrow">›</span>
-          </a>
+        <div class="service-item">
+          <h3>Our Advices</h3>
+          <p>
+            What if you took advantage of this rather special period to rethink
+            your interior? You spend more time at home so you might as well feel
+            good there.
+          </p>
         </div>
 
-        <div class="services-column">
-          <div class="service-item">
-            <h3>Our Advices</h3>
-            <p>
-              What if you took advantage of this rather special period to
-              rethink your interior? You spend more time at home so you might as
-              well feel good there.
-            </p>
-          </div>
-          <div class="service-item">
-            <h3>Conception Service</h3>
-            <p>
-              Personalized service with an expert advisor for your interior and
-              exterior decoration or layout projects.
-            </p>
-          </div>
+        <div class="service-item">
+          <h3>Click and Collect</h3>
+          <p>
+            Adapted and contactless. Free from € 200 of purchases in stores
+            offering the service.
+          </p>
         </div>
 
-        <div class="services-column">
-          <div class="service-item">
-            <h3>Click and Collect</h3>
-            <p>
-              Adapted and contactless. Free from € 200 of purchases in stores
-              offering the service.
-            </p>
-          </div>
-          <div class="service-item">
-            <h3>Installation Service</h3>
-            <p>
-              Our furniture packaged in flat packs are designed for easy
-              assembly. But you can call on our partner.
-            </p>
-          </div>
+        <div class="service-item">
+          <h3>Conception Service</h3>
+          <p>
+            Personalized service with an expert advisor for your interior and
+            exterior decoration or layout projects.
+          </p>
+        </div>
+
+        <div class="service-item">
+          <h3>Installation Service</h3>
+          <p>
+            Our furniture packaged in flat packs are designed for easy assembly.
+            But you can call on our partner.
+          </p>
         </div>
       </div>
     </div>
@@ -61,15 +59,14 @@
   background-color: var(
     --bg-main
   ); /* Assuming same background as other sections */
-  padding: 100px 0; /* Adjust vertical padding */
+  padding: 70px 0; /* Adjust vertical padding */
   font-family: var(--font-sans);
 }
 
 .container {
-  max-width: var(--page-max-width, 1280px); /* Use global max-width */
+  max-width: 1280px; /* ou ce que tu préfères */
   margin: 0 auto;
-  padding: 0 4%; /* Consistent horizontal padding with other sections */
-  box-sizing: border-box;
+  position: relative;
 }
 
 .services-grid {
@@ -79,14 +76,13 @@
      Visually, the title column looks slightly less than half, and the other two are equal.
      Let's try: title ~40-45%, services ~27-30% each.
   */
-  grid-template-columns: 1.5fr 1fr 1fr; /* Example: 1.5 + 1 + 1 = 3.5 parts. Title is 1.5/3.5 ~ 43% */
+  grid-template-columns: 1fr 1fr; /* Example: 1.5 + 1 + 1 = 3.5 parts. Title is 1.5/3.5 ~ 43% */
   gap: 40px; /* Gap between columns */
 }
 
 .main-title-column {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Pushes title up and link down if there's enough height */
 }
 
 .main-title-column h1 {
@@ -110,7 +106,6 @@
   line-height: 25px;
   letter-spacing: 0.3px;
   align-items: center;
-  margin-top: auto; /* Pushes link to bottom if column has extra space */
 }
 
 .find-out-more-link .arrow {
@@ -126,7 +121,7 @@
 
 .service-item h3 {
   font-family: var(
-    --font-serif
+    --font-sans
   ); /* Or --font-sans if preferred for these subheadings */
   font-size: 25px; /* Adjust size */
   line-height: 30px;

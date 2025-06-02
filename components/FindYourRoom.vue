@@ -1,5 +1,5 @@
 <template>
-  <section class="find-room-section">
+  <section class="container find-room-section">
     <h2 class="section-title">Find your room</h2>
 
     <div class="room-showcase">
@@ -45,7 +45,7 @@ const totalPages = ref(5);
 <style scoped>
 .find-room-section {
   background-color: var(--bg-main);
-  padding: 80px 0 100px 0; /* Added more bottom padding */
+  padding: 70px 0; /* Added more bottom padding */
   font-family: var(--font-sans);
 }
 
