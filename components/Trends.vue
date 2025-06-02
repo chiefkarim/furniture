@@ -41,17 +41,23 @@
             that to inspire you we have to inspire ourselves and we want to
             share that with you.
           </p>
-          <div class="inspiration-pagination">
-            <button
-              class="nav-arrow prev-arrow"
-              aria-label="Previous inspiration"
-            >
-              ‹
-            </button>
+          <div>
+            <div class="inspiration-pagination">
+              <button
+                class="nav-arrow prev-arrow"
+                aria-label="Previous inspiration"
+              >
+                ‹
+              </button>
+              <button
+                class="nav-arrow next-arrow"
+                aria-label="Next inspiration"
+              >
+                ›
+              </button>
+            </div>
+
             <span class="page-info">01 / 05</span>
-            <button class="nav-arrow next-arrow" aria-label="Next inspiration">
-              ›
-            </button>
           </div>
         </div>
       </div>
@@ -98,8 +104,7 @@ function handleSubscription() {
   display: flex;
   justify-content: space-between;
   align-items: flex-start; /* Align items to the top */
-  margin-bottom: 80px; /* Space before inspirations */
-  padding-bottom: 40px; /* Optional: Space below subscription form before border */
+  padding-bottom: 60px; /* Optional: Space below subscription form before border */
   /* border-bottom: 1px solid var(--light-border-color); /* Optional: if there's a subtle separator */
 }
 
@@ -158,7 +163,7 @@ function handleSubscription() {
   border-right: none; /* Button will form the right border */
   font-family: var(--font-sans);
   font-size: 14px;
-  background-color: var(--white); /* White background for input */
+  background-color: #f3eee84d; /* White background for input */
   color: var(--text-secondary);
   border-radius: 0; /* Sharp corners if desired */
   outline: none;
@@ -169,11 +174,11 @@ function handleSubscription() {
 
 .subscription-form button[type="submit"] {
   padding: 12px 25px;
-  background-color: var(--text-secondary); /* Dark button like image */
+  background-color: #534b42; /* Dark button like image */
   color: var(--white);
   border: 1px solid var(--text-secondary); /* Match background */
   cursor: pointer;
-  font-family: var(--font-sans);
+  font-family: "Karla";
   font-size: 14px;
   font-weight: 500;
   border-radius: 0;
@@ -212,32 +217,36 @@ function handleSubscription() {
 
 .inspiration-text-content {
   display: grid;
-  grid-template-columns: 1.5fr 1fr; /* Title wider, description/pagination narrower */
+  grid-template-columns: 1fr 1fr 1fr; /* Title wider, description/pagination narrower */
   gap: 40px; /* Gap between title column and description/pagination column */
   align-items: flex-start; /* Align tops of items in grid */
 }
 
 .inspirations-title {
   font-family: var(--font-serif);
-  font-size: 48px; /* Large title */
+  font-size: 45px; /* Large title */
   color: var(--text-secondary);
-  line-height: 1.1;
-  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: -0.3px;
+  font-weight: 300;
   /* text-align: right; /* If you want to align it to the right of its column */
 }
 
 .inspirations-description {
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 18px;
+  line-height: 25px;
   color: var(--text-secondary);
-  margin-bottom: 30px; /* Space before pagination */
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: 0;
+  margin: 0;
 }
 
 .inspiration-pagination {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Align pagination to the right */
-  /* margin-top: auto; /* Push to bottom if its column has space */
+  justify-content: flex-start; /* Align pagination to the right */
+  margin-bottom: 20px;
 }
 
 .nav-arrow {
@@ -262,10 +271,7 @@ function handleSubscription() {
   color: var(--white);
 }
 .nav-arrow.prev-arrow {
-  margin-right: 15px;
-}
-.nav-arrow.next-arrow {
-  margin-left: 15px;
+  margin-right: 11px;
 }
 
 .inspiration-pagination .page-info {
