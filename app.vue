@@ -4,6 +4,7 @@
   <FindYourRoom />
   <About />
   <Trends />
+  <Footer />
   <!-- You can add other page content below the header -->
   <!--
     <main>
