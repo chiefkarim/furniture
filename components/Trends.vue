@@ -1,7 +1,6 @@
 <template>
   <section class="latest-trends-section">
     <div class="container">
-      <!-- Newsletter/Trends Subscription Part -->
       <div class="trends-subscription">
         <div class="trends-info">
           <h2>Be aware of the latest trends</h2>
@@ -21,15 +20,18 @@
         </form>
       </div>
 
-      <!-- Inspirations Part -->
       <div class="inspirations-showcase">
         <div class="inspiration-images">
           <div
             v-for="(image, index) in inspirationImages"
             :key="index"
-            class="inspiration-image-card"
+            class="inspiration-image-wrapper"
           >
-            <img :src="image.src" :alt="image.alt" />
+            <div class="inspiration-image-card">
+              <img :src="image.src" :alt="image.alt" />
+            </div>
+
+            <p class="inspiration-name">{{ image.name }}</p>
           </div>
         </div>
 
@@ -41,7 +43,7 @@
             that to inspire you we have to inspire ourselves and we want to
             share that with you.
           </p>
-          <div>
+          <div class="pagination-wrapper">
             <div class="inspiration-pagination">
               <button
                 class="nav-arrow prev-arrow"
@@ -71,12 +73,26 @@ import { ref } from "vue";
 const email = ref("");
 
 const inspirationImages = ref([
-  { src: "/images/trend-1.png", alt: "Yellow chair inspiration" },
   {
+    name: "chair",
+    src: "/images/trend-1.png",
+    alt: "Yellow chair inspiration",
+  },
+  {
+    name: "cooked",
     src: "/images/trend-2.png",
     alt: "Kitchen inspiration with wicker lamp",
   },
-  { src: "/images/trend-3.png", alt: "Living room sofa inspiration" },
+  {
+    name: "living room",
+    src: "/images/trend-3.png",
+    alt: "Living room sofa inspiration",
+  },
+  {
+    name: "tables",
+    src: "/images/trend-4.jpg",
+    alt: "Living room sofa inspiration",
+  },
 ]);
 
 function handleSubscription() {
@@ -91,7 +107,7 @@ function handleSubscription() {
 <style scoped>
 .latest-trends-section {
   background-color: white;
-  padding: 70px 0; /* Adjust vertical padding */
+  padding: 70px 0;
   font-family: var(--font-sans);
 }
 
@@ -101,10 +117,8 @@ function handleSubscription() {
   position: relative;
 } /* --- Trends Subscription Part --- */
 .trends-subscription {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start; /* Align items to the top */
   padding-bottom: 60px; /* Optional: Space below subscription form before border */
+  display: flex;
   /* border-bottom: 1px solid var(--light-border-color); /* Optional: if there's a subtle separator */
 }
 
@@ -119,6 +133,7 @@ function handleSubscription() {
   line-height: 40px;
   font-weight: 400;
   margin-bottom: 15px;
+  text-align: left;
   letter-spacing: -0.3px;
 }
 
@@ -150,9 +165,6 @@ function handleSubscription() {
 }
 
 .subscription-form {
-  display: flex;
-  align-items: stretch; /* Make input and button same height */
-  flex-basis: 40%; /* Adjust as needed */
   margin-top: 10px; /* Align better with title if text wraps */
 }
 
@@ -205,7 +217,6 @@ function handleSubscription() {
 .inspiration-image-card {
   aspect-ratio: 3 / 4; /* Portrait aspect ratio for images */
   overflow: hidden;
-  background-color: #e0d9d0; /* Fallback */
 }
 
 .inspiration-image-card img {
@@ -279,14 +290,14 @@ function handleSubscription() {
   color: var(--text-secondary);
   opacity: 0.7; /* Slightly less prominent */
 }
-
+.inspiration-name {
+  display: none;
+}
 /* --- Responsive Adjustments --- */
 @media (max-width: 992px) {
   /* Tablet */
   .trends-subscription {
     flex-direction: column; /* Stack info and form */
-    align-items: center; /* Center items when stacked */
-    text-align: center;
     gap: 30px;
     margin-bottom: 60px;
   }
@@ -297,21 +308,20 @@ function handleSubscription() {
     max-width: none; /* Allow full width */
   }
   .subscription-form {
-    flex-basis: auto;
-    width: 100%;
-    max-width: 450px; /* Limit form width on tablet */
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    width: 320px;
   }
+
   .trends-info h2 {
     font-size: 32px;
   }
 
   .inspiration-images {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(200px, 1fr)
-    ); /* Responsive grid */
+    grid-template-columns: repeat(2, 1fr); /* Three equal columns */
+    /* Responsive grid */
     gap: 20px;
-    margin-bottom: 40px;
   }
   .inspiration-text-content {
     grid-template-columns: 1fr; /* Stack title and description/pagination */
@@ -325,10 +335,17 @@ function handleSubscription() {
   .inspiration-pagination {
     justify-content: center; /* Center pagination */
   }
+  .inspiration-name {
+    display: block;
+    text-transform: capitalize;
+  }
 }
 
 @media (max-width: 768px) {
   /* Mobile */
+  .container {
+    padding: 48px 7%;
+  }
   .latest-trends-section {
     padding: 50px 0;
   }
@@ -352,6 +369,11 @@ function handleSubscription() {
   .subscription-form button[type="submit"] {
     padding: 10px 20px;
   }
+  .inspirations-showcase {
+    display: flex;
+    flex-direction: column;
+    flex-flow: column-reverse;
+  }
 
   .inspiration-images {
     /* Keep responsive grid, or force 1 or 2 columns */
@@ -366,6 +388,10 @@ function handleSubscription() {
   .inspirations-title {
     font-size: 32px;
   }
+  .inspiration-text-content {
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
   .inspirations-description {
     font-size: 14px;
   }
@@ -373,6 +399,9 @@ function handleSubscription() {
     width: 32px;
     height: 32px;
     font-size: 18px;
+  }
+  .pagination-wrapper {
+    display: none;
   }
 }
 </style>
