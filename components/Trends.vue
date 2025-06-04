@@ -1,13 +1,13 @@
 <template>
-  <section class="latest-trends-section">
-    <div class="container">
+  <div class="latest-trends-section">
+    <section class="container">
       <div class="trends-subscription">
         <div class="trends-info">
           <h2>Be aware of the latest trends</h2>
           <p>Stay informed of new trends, but also of our various offers.</p>
-          <a href="#" class="learn-more-link"
-            >Learn more <span class="arrow">›</span></a
-          >
+          <a href="#" class="learn-more-link">
+            Learn more <span class="arrow">›</span>
+          </a>
         </div>
         <form class="subscription-form" @submit.prevent="handleSubscription">
           <input
@@ -21,17 +21,21 @@
       </div>
 
       <div class="inspirations-showcase">
-        <div class="inspiration-images">
+        <div class="slider-viewport">
           <div
-            v-for="(image, index) in inspirationImages"
-            :key="index"
-            class="inspiration-image-wrapper"
+            class="slider-track"
+            :style="{ transform: `translateX(-${computedShift}%)` }"
           >
-            <div class="inspiration-image-card">
-              <img :src="image.src" :alt="image.alt" />
+            <div
+              v-for="(image, index) in inspirationImages"
+              :key="index"
+              class="inspiration-image-wrapper"
+            >
+              <div class="inspiration-image-card">
+                <img :src="image.src" :alt="image.alt" />
+              </div>
+              <p class="inspiration-name">{{ image.name }}</p>
             </div>
-
-            <p class="inspiration-name">{{ image.name }}</p>
           </div>
         </div>
 
@@ -47,32 +51,41 @@
             <div class="inspiration-pagination">
               <button
                 class="nav-arrow prev-arrow"
+                @click="goPrev"
                 aria-label="Previous inspiration"
               >
                 ‹
               </button>
               <button
                 class="nav-arrow next-arrow"
+                @click="goNext"
                 aria-label="Next inspiration"
               >
                 ›
               </button>
             </div>
-
-            <span class="page-info">01 / 05</span>
+            <span class="page-info">
+              {{ formattedCurrentSlide }} / {{ formattedTotalSlides }}
+            </span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 
 const email = ref("");
 
-const inspirationImages = ref([
+// Données des images
+interface Inspiration {
+  name: string;
+  src: string;
+  alt: string;
+}
+const inspirationImages = ref<Inspiration[]>([
   {
     name: "chair",
     src: "/images/trend-1.png",
@@ -95,130 +108,217 @@ const inspirationImages = ref([
   },
 ]);
 
+// 1. Index du slide actuel (0-based)
+const currentIndex = ref(0);
+
+// 2. Nombre d’items visibles : 2.5 en desktop, 1.5 en tablet/mobile large
+const countVisible = ref(2.5);
+
+// 3. Calcul du nombre total de slides possibles
+const totalSlides = computed(() => {
+  const n = inspirationImages.value.length;
+  const maxIndex = Math.floor(n - countVisible.value);
+  return maxIndex >= 0 ? maxIndex + 1 : 1;
+});
+
+// 4. Chaque carte occupe (100% / countVisible) → décalage en pourcentage
+const slideShiftPercent = computed(() => {
+  return 100 / countVisible.value;
+});
+
+// 5. Calcul du “shift” effectif selon l’index :
+//    - Si ce n’est pas le dernier slide, shift = index * slideShiftPercent
+//    - Si c’est le dernier slide, on veut que la dernière image soit entièrement visible → shift spécial
+const computedShift = computed(() => {
+  const n = inspirationImages.value.length;
+  if (currentIndex.value < totalSlides.value - 1) {
+    return currentIndex.value * slideShiftPercent.value;
+  } else {
+    // Décalage pour aligner la dernière image en bord droit
+    // (n - countVisible) * (100 / countVisible)
+    return (n - countVisible.value) * slideShiftPercent.value;
+  }
+});
+
+// 6. Au redimensionnement, on ajuste countVisible
+function updateCountVisible() {
+  // < 768px → 1.5 cartes visibles, ≥ 768px → 2.5 cartes visibles
+  const newCount = window.innerWidth < 768 ? 1.5 : 2.5;
+  if (newCount !== countVisible.value) {
+    countVisible.value = newCount;
+    // Si l’index courant dépasse, on le recale
+    if (currentIndex.value > totalSlides.value - 1) {
+      currentIndex.value = totalSlides.value - 1;
+    }
+  }
+}
+
+onMounted(() => {
+  updateCountVisible();
+  window.addEventListener("resize", updateCountVisible);
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", updateCountVisible);
+});
+
+// 7. Navigation “Prev” / “Next”
+function goNext() {
+  if (currentIndex.value < totalSlides.value - 1) {
+    currentIndex.value++;
+  } else {
+    currentIndex.value = 0;
+  }
+}
+function goPrev() {
+  if (currentIndex.value > 0) {
+    currentIndex.value--;
+  } else {
+    currentIndex.value = totalSlides.value - 1;
+  }
+}
+
+// 8. Pagination formatée (“01” / “05”)
+const formattedCurrentSlide = computed(() => {
+  const display = currentIndex.value + 1;
+  return display < 10 ? "0" + display : String(display);
+});
+const formattedTotalSlides = computed(() => {
+  const total = totalSlides.value;
+  return total < 10 ? "0" + total : String(total);
+});
+
+// 9. Formulaire d’abonnement (inchangé)
 function handleSubscription() {
   if (email.value) {
     alert(`Subscribed with: ${email.value}`);
-    // Here you would typically send the email to your backend
-    email.value = ""; // Clear the input
+    email.value = "";
   }
 }
 </script>
 
 <style scoped>
+/* ----------------------------------------------------------- */
+/*     Partie “Trending Subscription” (styles mobile originaux) */
+/* ----------------------------------------------------------- */
 .latest-trends-section {
   background-color: white;
-  padding: 70px 0;
   font-family: var(--font-sans);
 }
-
 .container {
   max-width: 1280px;
   margin: 0 auto;
+  padding: 48px 7%;
   position: relative;
-} /* --- Trends Subscription Part --- */
+}
+.slider-track {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .trends-subscription {
-  padding-bottom: 60px; /* Optional: Space below subscription form before border */
   display: flex;
-  /* border-bottom: 1px solid var(--light-border-color); /* Optional: if there's a subtle separator */
+  flex-direction: column;
+  gap: 30px;
 }
 
 .trends-info {
-  flex-basis: 55%; /* Adjust as needed */
+  flex-basis: auto;
 }
-
 .trends-info h2 {
   font-family: var(--font-serif);
-  font-size: 35px; /* Adjust size */
-  color: #121212; /* Matches "Find your room" title color */
+  font-size: 35px;
+  color: #121212;
   line-height: 40px;
   font-weight: 400;
   margin-bottom: 15px;
   text-align: left;
   letter-spacing: -0.3px;
 }
-
 .trends-info p {
   font-size: 18px;
   color: #706458e5;
   font-weight: 400;
   line-height: 25px;
   margin-bottom: 20px;
-  letter-spacing: 0;
-  max-width: 450px; /* Limit width of this text */
+  max-width: 450px;
 }
-
 .learn-more-link {
-  font-family: "Karla"; /* Or Karla if used consistently for these links */
+  font-family: "Karla";
   font-size: 17px;
   color: var(--text-primary);
   text-decoration: none;
   font-weight: 700;
   line-height: 25px;
-  letter-spacing: -0.3px;
   display: inline-flex;
   align-items: center;
 }
-
 .learn-more-link .arrow {
   margin-left: 8px;
   font-size: 18px;
 }
 
 .subscription-form {
-  margin-top: 10px; /* Align better with title if text wraps */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
+  gap: 16px;
 }
-
 .subscription-form input[type="email"] {
-  flex-grow: 1;
   padding: 12px 15px;
-  border: 1px solid var(--light-border-color, #ddd); /* Use global or fallback */
-  border-right: none; /* Button will form the right border */
+  border: 1px solid var(--light-border-color, #ddd);
   font-family: var(--font-sans);
   font-size: 14px;
-  background-color: #f3eee84d; /* White background for input */
+  background-color: #f3eee84d;
   color: var(--text-secondary);
-  border-radius: 0; /* Sharp corners if desired */
   outline: none;
+  border-radius: 0;
+  line-height: 25px;
 }
 .subscription-form input[type="email"]::placeholder {
-  color: #aaa; /* Lighter placeholder text */
+  color: #aaa;
 }
-
 .subscription-form button[type="submit"] {
   padding: 12px 25px;
-  background-color: #534b42; /* Dark button like image */
+  background-color: #534b42;
   color: var(--white);
-  border: 1px solid var(--text-secondary); /* Match background */
+  border: 1px solid var(--text-secondary);
   cursor: pointer;
   font-family: "Karla";
   font-size: 14px;
-  font-weight: 500;
-  border-radius: 0;
+  font-weight: 700;
+  line-height: 25px;
   white-space: nowrap;
   transition: background-color 0.3s ease;
+  border-radius: 0;
 }
-
 .subscription-form button[type="submit"]:hover {
-  background-color: #50483e; /* Slightly darker shade for hover */
+  background-color: #50483e;
 }
 
-/* --- Inspirations Part --- */
+/* ----------------------------------------------------------- */
+/*  Partie “Inspirations” : grille mobile/​tablet (inchangée)   */
+/* ----------------------------------------------------------- */
 .inspirations-showcase {
-  /* No specific flex/grid here yet, default block layout */
+  /* Pas de flex ni grid supplémentaire */
+  display: flex;
+  flex-direction: column;
+  flex-flow: column-reverse;
+  text-align: left;
 }
 
+/* Grille de base pour mobile et tablet */
 .inspiration-images {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Three equal columns */
-  gap: 25px; /* Gap between images */
-  margin-bottom: 50px; /* Space below images before text */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
 }
-
 .inspiration-image-card {
-  aspect-ratio: 3 / 4; /* Portrait aspect ratio for images */
+  aspect-ratio: 1;
   overflow: hidden;
+  border-radius: 1px;
 }
-
 .inspiration-image-card img {
   width: 100%;
   height: 100%;
@@ -226,182 +326,197 @@ function handleSubscription() {
   display: block;
 }
 
+.inspiration-name {
+  margin-top: 15px;
+  font-size: 15px;
+  font-family: "Lato";
+  text-transform: capitalize;
+  color: #121212;
+  font-weight: 400;
+  text-align: left;
+  line-height: 20px;
+}
+
 .inspiration-text-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* Title wider, description/pagination narrower */
-  gap: 40px; /* Gap between title column and description/pagination column */
-  align-items: flex-start; /* Align tops of items in grid */
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 64px;
+  margin-bottom: 40px;
+  text-align: left;
 }
 
 .inspirations-title {
   font-family: var(--font-serif);
-  font-size: 45px; /* Large title */
+  font-size: 35px;
   color: var(--text-secondary);
   line-height: 40px;
   letter-spacing: -0.3px;
-  font-weight: 300;
-  /* text-align: right; /* If you want to align it to the right of its column */
+  font-weight: 400;
+  text-align: left;
 }
-
 .inspirations-description {
   font-size: 18px;
   line-height: 25px;
   color: var(--text-secondary);
   font-family: var(--font-sans);
   font-weight: 400;
-  letter-spacing: 0;
   margin: 0;
+  text-align: left;
 }
-
+.pagination-wrapper {
+  display: none;
+}
 .inspiration-pagination {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Align pagination to the right */
-  margin-bottom: 20px;
+  gap: 10px;
 }
-
-.nav-arrow {
-  background-color: transparent;
-  border: 1.5px solid var(--text-primary);
-  color: var(--text-primary);
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+.inspiration-pagination .nav-arrow,
+.inspiration-pagination .next-arrow {
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
 }
-.nav-arrow:hover {
-  background-color: var(--text-primary);
-  color: var(--white);
-}
-.nav-arrow.prev-arrow {
-  margin-right: 11px;
-}
-
 .inspiration-pagination .page-info {
   font-size: 14px;
   color: var(--text-secondary);
-  opacity: 0.7; /* Slightly less prominent */
+  opacity: 0.7;
 }
-.inspiration-name {
-  display: none;
+.inspiration-image-wrapper {
+  flex: 0 0 calc(100% / 2.5);
+  box-sizing: border-box;
+  padding-right: 16px;
+  text-align: left;
 }
-/* --- Responsive Adjustments --- */
-@media (max-width: 992px) {
-  /* Tablet */
-  .trends-subscription {
-    flex-direction: column; /* Stack info and form */
-    gap: 30px;
-    margin-bottom: 60px;
-  }
-  .trends-info {
-    flex-basis: auto; /* Full width when stacked */
-  }
-  .trends-info p {
-    max-width: none; /* Allow full width */
-  }
-  .subscription-form {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 100%;
-    width: 320px;
-  }
 
-  .trends-info h2 {
-    font-size: 32px;
-  }
+/* ----------------------------------------------------------- */
+/*                Styles “Desktop & Large Tablet”              */
+/*      (≥ 992px : on bascule sur le slider horizontal)        */
+/* ----------------------------------------------------------- */
+@media (min-width: 992px) {
+  /* On masque la grille mobile/tablet */
 
   .inspiration-images {
-    grid-template-columns: repeat(2, 1fr); /* Three equal columns */
-    /* Responsive grid */
-    gap: 20px;
-  }
-  .inspiration-text-content {
-    grid-template-columns: 1fr; /* Stack title and description/pagination */
-    text-align: center; /* Center text */
-    gap: 25px;
-  }
-  .inspirations-title {
-    font-size: 40px;
-    text-align: center; /* Ensure title is centered */
-  }
-  .inspiration-pagination {
-    justify-content: center; /* Center pagination */
-  }
-  .inspiration-name {
-    display: block;
-    text-transform: capitalize;
-  }
-}
-
-@media (max-width: 768px) {
-  /* Mobile */
-  .container {
-    padding: 48px 7%;
-  }
-  .latest-trends-section {
-    padding: 50px 0;
-  }
-  .trends-subscription {
-    margin-bottom: 50px;
-  }
-  .trends-info h2 {
-    font-size: 28px;
-  }
-  .trends-info p {
-    font-size: 14px;
-  }
-  .learn-more-link {
-    font-size: 14px;
-  }
-  .subscription-form input[type="email"],
-  .subscription-form button[type="submit"] {
-    font-size: 13px;
-    padding: 10px 15px;
-  }
-  .subscription-form button[type="submit"] {
-    padding: 10px 20px;
+    display: none;
   }
   .inspirations-showcase {
+    flex-flow: column;
+  }
+  .container {
+    padding: 70px 0;
+  }
+  /* 1. Viewport du slider */
+  .slider-viewport {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  /* 2. Track contenant toutes les cartes en flex-row */
+  .slider-track {
     display: flex;
-    flex-direction: column;
-    flex-flow: column-reverse;
+    transition: transform 0.5s ease;
   }
 
-  .inspiration-images {
-    /* Keep responsive grid, or force 1 or 2 columns */
-    /* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
-    gap: 15px;
-    margin-bottom: 30px;
-  }
   .inspiration-image-card {
-    aspect-ratio: 1; /* Square images on mobile for simplicity or adjust */
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 1px;
+  }
+  .inspiration-image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
-  .inspirations-title {
-    font-size: 32px;
-  }
-  .inspiration-text-content {
-    margin-top: 64px;
+  /* 4. Pagination du slider */
+  .pagination-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
     margin-bottom: 40px;
   }
-  .inspirations-description {
-    font-size: 14px;
-  }
   .nav-arrow {
-    width: 32px;
-    height: 32px;
+    background-color: transparent;
+    border: 1.5px solid var(--text-primary);
+    color: var(--text-primary);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+  .nav-arrow:hover {
+    background-color: var(--text-primary);
+    color: var(--white);
+  }
+  .nav-arrow.prev-arrow {
+    margin-right: 8px;
+  }
+  .nav-arrow.next-arrow {
+    margin-left: 8px;
+  }
+  .page-info {
+    font-size: 14px;
+    color: var(--text-secondary);
+    opacity: 0.7;
+  }
+
+  /* 5. Texte & disposition texte à droite */
+  .inspiration-text-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    align-items: flex-start;
+  }
+  .inspirations-title {
+    font-family: var(--font-serif);
+    font-size: 45px;
+    color: var(--text-secondary);
+    line-height: 40px;
+    letter-spacing: -0.3px;
+    font-weight: 300;
+    text-align: left;
+  }
+  .inspirations-description {
     font-size: 18px;
+    line-height: 25px;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    margin: 0;
   }
   .pagination-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .inspiration-pagination {
+    margin-bottom: 20px;
+  }
+  .inspiration-name {
     display: none;
+  }
+  .trends-subscription {
+    margin-bottom: 64px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .slider-track {
+    display: flex;
   }
 }
 </style>
