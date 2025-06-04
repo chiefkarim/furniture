@@ -1,11 +1,10 @@
 <template>
   <footer class="app-footer">
     <div class="container">
+      <div class="footer-column logo-column">
+        <div class="footer-logo">antic</div>
+      </div>
       <div class="footer-main-content">
-        <div class="footer-column logo-column">
-          <div class="footer-logo">antic</div>
-        </div>
-
         <div class="footer-column links-column">
           <h4>Products</h4>
           <ul>
@@ -302,7 +301,7 @@
   }
   .footer-main-content {
     grid-template-columns: 1fr; /* Stack all columns */
-    text-align: center; /* Center text in stacked columns */
+    text-align: left; /* Center text in stacked columns */
     gap: 30px;
     border-bottom: none; /* Remove border on mobile */
     padding-bottom: 0;
@@ -310,8 +309,22 @@
   .footer-column {
     margin-bottom: 20px; /* Add space between stacked sections */
   }
+  .footer-column h4 {
+    color: #121212;
+    text-transform: capitalize;
+  }
+  .footer-column a {
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.2px;
+  }
+
   .footer-logo {
     margin-bottom: 10px;
+    font-size: 34px;
+    color: #534b42;
+    align-self: center;
+    text-align: center;
   }
   .links-column ul {
     /* Optional: display as inline-block or flex-wrap for mobile if many items */
@@ -334,15 +347,23 @@
   }
   .footer-bottom-bar {
     flex-direction: column; /* Stack copyright and utility links */
-    text-align: center;
+    flex-flow: column-reverse;
+    text-align: left;
     gap: 10px; /* Space between stacked items */
     padding-top: 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
+    align-items: flex-start;
   }
   .utility-links a {
     margin: 0 10px; /* Adjust spacing for utility links */
     display: inline-block; /* Ensure they space out */
     margin-bottom: 5px; /* If they wrap */
+    text-align: left;
+  }
+  .footer-main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 </style>

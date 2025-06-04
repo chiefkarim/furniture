@@ -277,31 +277,56 @@
 }
 
 @media (max-width: 992px) {
-  .hero-left {
-    flex-basis: 50%;
-    padding: 30px 5% 40px 5%;
+  .app-header {
+    height: 100vh;
   }
   .hero-right {
-    flex-basis: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
   }
+  .hero-left {
+    z-index: 2;
+    position: relative;
+    background-color: #70645833;
+    align-items: center;
+    text-align: center;
+  }
+
   .logo {
-    font-size: 28px;
+    color: white;
+    font-size: 34px;
   }
-  .main-nav li {
-    margin-left: 25px;
-  }
-  .main-nav a {
+  .tagline {
+    color: white;
+    letter-spacing: 1;
+    line-height: 20px;
     font-size: 14px;
-  }
-  .hero-left h1 {
-    font-size: 40px;
+    font-family: var(--text-secondary);
   }
   .description {
-    font-size: 15px;
+    color: white;
+    font-weight: 400;
+    font-size: 18px;
   }
+  .scroll-indicator {
+    border-color: white;
+    color: white;
+    background-color: transparent;
+  }
+
+  .hero-left h1 {
+    color: white;
+    line-height: 40px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+
   .chat-icon {
-    right: 5%;
-    top: 30px;
+    display: none;
   }
 }
 
