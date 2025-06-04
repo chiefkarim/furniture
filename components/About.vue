@@ -67,6 +67,7 @@
   max-width: 1280px; /* ou ce que tu préfères */
   margin: 0 auto;
   position: relative;
+  padding: 70px 0;
 }
 
 .services-grid {
@@ -168,15 +169,15 @@
     padding: 60px 0 70px 0;
   }
   .container {
-    padding: 0 5%; /* Standard mobile padding */
+    padding: 48px 7%; /* Standard mobile padding */
   }
   .services-grid {
     grid-template-columns: 1fr; /* Stack all columns */
     gap: 40px; /* Gap between stacked sections */
   }
   .main-title-column {
-    align-items: center; /* Center content in the title column */
-    text-align: center;
+    font-size: 35px;
+    letter-spacing: -0.3px;
   }
   .main-title-column h1 {
     font-size: 40px; /* Scale down */
@@ -184,7 +185,8 @@
   }
   .find-out-more-link {
     margin-top: 0; /* Reset margin-top when stacked */
-    font-size: 16px;
+    font-size: 17px;
+    font-weight: 900;
   }
   .services-column {
     gap: 30px; /* Reduce gap between service items when stacked */
@@ -194,10 +196,10 @@
     margin-bottom: 10px; /* Small space between individual service items if columns stack */
   }
   .service-item h3 {
-    font-size: 20px;
+    font-size: 25px;
   }
   .service-item p {
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 </style>

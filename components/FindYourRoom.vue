@@ -113,7 +113,7 @@ const formattedTotalPages = computed(() => {
 /* Fond principal (beige clair) */
 .find-room-section {
   background-color: #f3efe8;
-  padding: 60px 7%;
+  padding: 48px 7%;
   font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -247,6 +247,7 @@ const formattedTotalPages = computed(() => {
 @media (min-width: 768px) {
   .container {
     max-width: 1280px; /* On agrandit pour afficher deux cartes */
+    padding: 70px 0;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
