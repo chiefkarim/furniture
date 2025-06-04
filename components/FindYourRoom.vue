@@ -1,246 +1,274 @@
 <template>
-  <section class="container find-room-section">
+  <section class="find-room-section container">
+    <!-- Titre principal -->
     <h2 class="section-title">Find your room</h2>
+    <!-- Sous-texte sous le titre -->
+    <p class="info-text">
+      Dining room, bedroom, bathroom or office. Find what you need
+    </p>
 
-    <div class="room-showcase">
-      <div class="showcase-info">
-        <p class="info-text">
-          Dining room, bedroom, bathroom or office. Find what you need
-        </p>
-      </div>
-
-      <div class="room-cards-container">
-        <div v-for="room in rooms" :key="room.name" class="room-card">
+    <!-- Conteneur des cartes -->
+    <div class="room-cards-container">
+      <div v-for="room in visibleRooms" :key="room.name" class="room-card">
+        <!-- Partie “Image + nom de la pièce” -->
+        <div class="image-wrapper">
           <img :src="room.image" :alt="room.name" class="card-bg-image" />
+          <!-- Nom de la pièce, centré sur l’image -->
           <h3 class="room-name">{{ room.name }}</h3>
-          <span class="new-arrivals-tag">New arrivals</span>
+        </div>
+
+        <!-- Partie “News arrivals” à droite de l’image -->
+        <div class="news-wrapper">
+          <span class="news-arrivals-tag">News arrivals</span>
         </div>
       </div>
     </div>
+
+    <!-- Pagination / Contrôles en bas -->
     <div class="pagination-controls">
-      <span class="page-info">01 / 05</span>
-      <a href="#" class="next-link">Next <span class="arrow">›</span></a>
+      <button class="next-link" @click.prevent="goNext">
+        Next <span class="arrow">›</span>
+      </button>
+      <span class="page-info">
+        {{ formattedCurrentPage }} / {{ formattedTotalPages }}
+      </span>
     </div>
   </section>
 </template>
-
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 
+// Définir le type Room
 interface Room {
   name: string;
   image: string;
 }
 
+// 1. Données statiques (exemple)
 const rooms = ref<Room[]>([
   { name: "Bedroom", image: "/images/bed-room-card.png" },
   { name: "Living room", image: "/images/living-room-card.jpg" },
 ]);
 
-// Placeholder for pagination logic if needed later
+// 2. Pagination
 const currentPage = ref(1);
-const totalPages = ref(5);
+// itemsPerPage ne repose plus sur window.innerWidth dès l'initialisation
+const itemsPerPage = ref(2);
+
+// 3. Calcul du nombre total de pages
+const totalPages = computed(() => {
+  return Math.ceil(rooms.value.length / itemsPerPage.value);
+});
+
+// 4. Sélection des salles à afficher selon la page
+const visibleRooms = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  return rooms.value.slice(start, start + itemsPerPage.value);
+});
+
+// 5. Mettre à jour itemsPerPage au redimensionnement, uniquement côté client
+function updateItemsPerPage() {
+  const newCount = window.innerWidth < 768 ? 1 : 2;
+  if (newCount !== itemsPerPage.value) {
+    itemsPerPage.value = newCount;
+    if (currentPage.value > totalPages.value) {
+      currentPage.value = totalPages.value;
+    }
+  }
+}
+
+onMounted(() => {
+  // On attend que le composant soit monté pour accéder à window
+  updateItemsPerPage();
+  window.addEventListener("resize", updateItemsPerPage);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateItemsPerPage);
+});
+
+// 6. Fonction "Next" pour la pagination
+function goNext() {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+  } else {
+    currentPage.value = 1;
+  }
+}
+
+// 7. Formatage pour afficher deux chiffres si < 10
+const formattedCurrentPage = computed(() => {
+  return currentPage.value < 10
+    ? "0" + currentPage.value
+    : String(currentPage.value);
+});
+const formattedTotalPages = computed(() => {
+  return totalPages.value < 10
+    ? "0" + totalPages.value
+    : String(totalPages.value);
+});
 </script>
 
 <style scoped>
+/* Fond principal (beige clair) */
 .find-room-section {
-  background-color: var(--bg-main);
-  padding: 70px 0; /* Added more bottom padding */
-  font-family: var(--font-sans);
+  background-color: #f3efe8;
+  padding: 60px 7%;
+  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
+/* Centrage et largeur max (identique à la capture) */
 .container {
-  max-width: 1280px; /* ou ce que tu préfères */
+  max-width: 500px; /* Pour correspondre exactement à la largeur mobile de la photo */
   margin: 0 auto;
-  position: relative;
 }
 
+/* Titre principal */
 .section-title {
-  font-family: var(--font-serif);
-  font-size: 55px; /* Slightly adjusted size */
-  color: var(--text-secondary);
-  text-align: left;
-  margin-bottom: 55px; /* Adjusted space */
-  font-weight: 400; /* Design looks like a regular, not heavy bold */
-  line-height: 60px;
+  font-family: "Georgia", serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #4a4131;
+  margin-bottom: 12px;
 }
 
-.room-showcase {
-  display: flex;
-  gap: 12px; /* Gap between info column and cards column */
-}
-
-.showcase-info {
-  flex-basis: 22%; /* Adjusted basis for the left info column */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Pushes info-text up, pagination-controls down */
-  color: var(--text-secondary);
-  padding-top: 5px; /* Slight adjustment to visually align top of text with top of cards */
-}
-
+/* Sous-texte sous le titre */
 .info-text {
   font-size: 14px;
-  line-height: 1.75;
-  margin-bottom: 25px; /* Space before pagination might be needed if content is short */
-  color: var(--text-secondary);
-}
-
-.pagination-controls {
-  display: flex;
-  justify-content: flex-start; /* This is CRUCIAL for separating page-info and next-link */
-  gap: 8px;
-  align-items: center;
-  font-size: 18px;
-}
-
-.page-info {
-  color: var(--text-secondary);
-  font-size: 18px;
   font-weight: 400;
-  line-height: 25px;
-  letter-spacing: 0;
-  opacity: 50%;
+  line-height: 1.75;
+  color: #8a8175;
+  margin-bottom: 24px;
 }
 
-.next-link {
-  text-decoration: none;
-  color: var(--text-primary);
-  font-weight: 700; /* Slightly bolder */
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-  line-height: 25px;
-}
-
-.next-link .arrow {
-  margin-left: 10px;
-  font-size: 22px;
-  line-height: 1; /* Helps with vertical alignment */
-}
-
+/* Conteneur des cartes, en colonne par défaut (mobile) */
 .room-cards-container {
-  flex-basis: 78%; /* Adjusted basis for the cards area */
   display: flex;
-  gap: 35px; /* Space between the two room cards */
+  flex-direction: column;
+  gap: 24px;
 }
 
+/* Chaque carte devient un flex-row (image à gauche, texte à droite) */
 .room-card {
-  flex: 1; /* Each card takes equal space */
   display: flex;
-  position: relative; /* Crucial for absolute positioning of overlay children */
-  aspect-ratio: 3 / 4.2; /* Making cards slightly taller (width / height) */
-  overflow: hidden;
-  justify-content: space-between;
+  flex-direction: row;
+  background-color: transparent; /* Le fond beige est celui de .find-room-section */
+  align-items: flex-start;
 }
 
+/* Partie gauche : l’image et le titre de la pièce */
+.image-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 60%; /* 60% de la largeur de la carte */
+  aspect-ratio: 3 / 4.2; /* Même ratio que sur la photo */
+  border-radius: 1px;
+  overflow: hidden;
+  background-color: #ffffff; /* On peut garder un fond blanc derrière l’image */
+}
+
+/* L’image elle-même */
 .card-bg-image {
-  width: 70%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.new-arrivals-tag {
-  font-size: 18px; /* Smaller as in design */
-  color: var(--text-secondary);
-  font-weight: 400;
-  line-height: 25px; /* Adjusted line height for multi-line room names */
-  white-space: nowrap; /* Prevent wrapping if container is too narrow */
-}
-
+/* Nom de la pièce, centré sur l’image */
 .room-name {
-  font-family: var(--font-serif);
-  font-size: 55px; /* Adjusted size to match design */
-  color: var(--text-primary);
-  text-align: center;
-  font-weight: 400; /* Bolder for emphasis */
-  line-height: 60px; /* Adjusted line height for multi-line room names */
-  letter-spacing: -0.6px;
-  width: 70%;
-  text-wrap: wrap;
-  max-width: 40%;
   position: absolute;
   top: 50%;
-  left: 65%;
+  left: 50%;
   transform: translate(-50%, -50%);
+  font-family: "Georgia", serif;
+  font-size: 28px;
+  color: #a15c4a;
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: center;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  pointer-events: none; /* Pour s’assurer qu’on ne clique pas sur le texte */
 }
 
-/* Responsive Adjustments */
-@media (max-width: 1024px) {
-  /* Added a breakpoint for tablets */
-  .container {
-    padding: 0 3%;
-  }
-  .section-title {
-    font-size: 50px;
-  }
-  .showcase-info {
-    flex-basis: 25%;
-  }
-  .room-cards-container {
-    flex-basis: 75%;
-    gap: 30px;
-  }
-  .room-name {
-    font-size: 40px;
-  }
-  .new-arrivals-tag {
-    font-size: 10px;
-  }
+/* Partie droite : “News arrivals” */
+.news-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-start; /* En haut */
+  justify-content: flex-start;
+  padding-left: 16px; /* Un petit espace entre l’image et le texte */
 }
 
-@media (max-width: 768px) {
-  /* Mobile devices */
-  .find-room-section {
-    padding: 60px 0 80px 0;
-  }
+/* Style du label “News arrivals” */
+.news-arrivals-tag {
+  font-size: 12px;
+  font-weight: 400;
+  color: #8a8175;
+  background-color: transparent; /* Sur fond beige clair du conteneur parent */
+}
+
+/* Pagination / contrôles en bas */
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
+
+/* Bouton “Next ›” */
+.next-link {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  color: #a15c4a;
+  display: flex;
+  align-items: center;
+}
+
+.next-link .arrow {
+  margin-left: 6px;
+  font-size: 18px;
+}
+
+/* Texte “01 / 05” */
+.page-info {
+  font-size: 14px;
+  font-weight: 400;
+  color: #8a8175;
+  opacity: 0.6;
+}
+
+/* ---- Responsive Desktop (≥ 768px) pour 2 cartes côte à côte ---- */
+@media (min-width: 768px) {
   .container {
-    padding: 0 5%;
+    max-width: 1280px; /* On agrandit pour afficher deux cartes */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
   }
-  .section-title {
-    font-size: 40px; /* Smaller for mobile */
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  .room-showcase {
-    flex-direction: column; /* Stack elements */
-    gap: 30px;
-  }
-  .showcase-info,
+
   .room-cards-container {
-    flex-basis: auto; /* Full width when stacked */
-    width: 100%;
+    flex-direction: row;
+    gap: 16px;
   }
-  .showcase-info {
-    align-items: center; /* Center info text on mobile */
-    text-align: center;
-    padding-bottom: 20px; /* Space before cards */
+
+  .room-card {
+    flex: 1;
   }
-  .pagination-controls {
-    /* width: 100%; */ /* Already set */
-    padding: 0 10px; /* Add some internal padding if text is too close to edges */
+
+  /* Ajuster taille du titre sur desktop */
+  .section-title {
+    font-size: 44px;
   }
   .info-text {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 25px;
-  }
-  .room-cards-container {
-    flex-direction: column;
-    gap: 25px;
-  }
-  .room-card {
-    aspect-ratio: 1.1 / 1; /* Slightly wider than tall, or square (1/1) */
-  }
-  .room-name {
-    font-size: 34px;
-  }
-  .card-overlay {
-    padding: 18px;
-  }
-  .new-arrivals-tag {
-    top: 18px; /* Match new padding */
+    font-size: 16px;
+    margin-bottom: 32px;
   }
 }
 </style>

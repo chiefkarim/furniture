@@ -383,7 +383,10 @@
   }
 }
 
-@media (max-width: 365px) {
+@media (max-width: 500px) {
+  .app-header {
+    height: 100vh;
+  }
   .hero-right {
     position: absolute;
     top: 0;
@@ -399,6 +402,7 @@
     align-items: center;
     text-align: center;
   }
+
   .logo {
     color: white;
     font-size: 34px;
@@ -426,6 +430,10 @@
     line-height: 40px;
     font-weight: 400;
     letter-spacing: -0.3px;
+  }
+
+  .chat-icon {
+    display: none;
   }
 }
 </style>
