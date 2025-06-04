@@ -186,7 +186,8 @@
   font-family: var(--font-sans);
   font-size: 16px;
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 25px;
+  letter-spacing: 0;
   font-weight: 300;
 }
 
@@ -215,8 +216,7 @@
   width: 20px;
   height: 20px;
 }
-
-.scroll-indicator:hover {
+.scroll .scroll-indicator:hover {
   background-color: rgba(
     160,
     96,
@@ -380,6 +380,52 @@
   .chat-icon svg {
     width: 18px;
     height: 18px;
+  }
+}
+
+@media (max-width: 365px) {
+  .hero-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+  }
+  .hero-left {
+    z-index: 2;
+    position: relative;
+    background-color: #70645833;
+    align-items: center;
+    text-align: center;
+  }
+  .logo {
+    color: white;
+    font-size: 34px;
+  }
+  .tagline {
+    color: white;
+    letter-spacing: 1;
+    line-height: 20px;
+    font-size: 14px;
+    font-family: var(--text-secondary);
+  }
+  .description {
+    color: white;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  .scroll-indicator {
+    border-color: white;
+    color: white;
+    background-color: transparent;
+  }
+
+  .hero-left h1 {
+    color: white;
+    line-height: 40px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
   }
 }
 </style>
