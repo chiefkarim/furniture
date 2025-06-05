@@ -117,10 +117,9 @@ const isMenuOpen = ref(false);
 }
 .hero-left {
   flex-basis: 40%;
-  padding: 35px 0 50px 0%;
+  padding: 35px 0 0%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   box-sizing: border-box;
   min-height: 100%;
 }
@@ -129,7 +128,7 @@ const isMenuOpen = ref(false);
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 110px;
   margin-top: 25px;
   position: relative; /* pour que le menu en absolute se réfère à cette zone */
 }
@@ -148,7 +147,6 @@ const isMenuOpen = ref(false);
   cursor: pointer;
   color: var(--text-secondary);
 }
-/* Navigation principale (desktop) */
 .main-nav ul {
   list-style: none;
   padding: 0;
@@ -169,14 +167,13 @@ const isMenuOpen = ref(false);
 .main-nav a:hover {
   color: #8c5046;
 }
-/* Contenu secondaire inchangé */
 .tagline {
   font-family: var(--font-serif);
   font-size: 11px;
   color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 25px;
+  margin-bottom: 50px;
   font-weight: 700;
 }
 .hero-left h1 {
@@ -194,6 +191,7 @@ const isMenuOpen = ref(false);
   color: var(--text-secondary);
   line-height: 25px;
   font-weight: 300;
+  margin-bottom: 48px;
 }
 .scroll-indicator {
   width: 44px;
