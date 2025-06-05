@@ -1,5 +1,5 @@
 <template>
-  <section class="find-room-section container">
+  <section id="rooms" class="find-room-section container">
     <!-- Titre principal -->
     <h2 class="section-title">Find your room</h2>
     <!-- Sous-texte sous le titre -->
@@ -68,7 +68,7 @@ const visibleRooms = computed(() => {
 
 // 5. Mettre à jour itemsPerPage au redimensionnement, uniquement côté client
 function updateItemsPerPage() {
-  const newCount = window.innerWidth < 768 ? 1 : 2;
+  const newCount = window.innerWidth < 992 ? 1 : 2;
   if (newCount !== itemsPerPage.value) {
     itemsPerPage.value = newCount;
     if (currentPage.value > totalPages.value) {
@@ -113,13 +113,12 @@ const formattedTotalPages = computed(() => {
 /* Fond principal (beige clair) */
 .find-room-section {
   background-color: #f3efe8;
-  padding: 48px 7%;
+  padding: 48px clamp(1rem, 5vw, 6.5rem);
   font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
 /* Centrage et largeur max (identique à la capture) */
 .container {
-  max-width: 500px; /* Pour correspondre exactement à la largeur mobile de la photo */
   margin: 0 auto;
 }
 
@@ -244,11 +243,12 @@ const formattedTotalPages = computed(() => {
 }
 
 /* ---- Responsive Desktop (≥ 768px) pour 2 cartes côte à côte ---- */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .container {
-    max-width: 1280px; /* On agrandit pour afficher deux cartes */
-    padding: 70px 0;
+    max-width: 1444px;
     margin: 0 auto;
+    position: relative;
+    padding: 70px clamp(1rem, 5vw, 6.5rem);
     display: flex;
     flex-direction: column;
     align-items: stretch;

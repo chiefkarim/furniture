@@ -1,10 +1,10 @@
 <template>
   <footer class="app-footer">
     <div class="container">
-      <div class="footer-column logo-column">
-        <div class="footer-logo">antic</div>
-      </div>
       <div class="footer-main-content">
+        <div class="footer-column logo-column">
+          <div class="footer-logo">antic</div>
+        </div>
         <div class="footer-column links-column">
           <h4>Products</h4>
           <ul>
@@ -114,7 +114,10 @@
   font-size: 14px; /* Default font size for footer text */
   line-height: 1.6;
 }
-
+.container {
+  max-width: 1444px;
+  padding: 0 clamp(1rem, 5vw, 6.5rem);
+}
 .footer-main-content {
   display: grid;
   /* 1 for logo, 4 for links, 1.5 for planet. Adjust fr units for proportions. */
@@ -247,58 +250,13 @@
 }
 
 /* --- Responsive Adjustments --- */
-@media (max-width: 1024px) {
-  /* Tablet */
-  .footer-main-content {
-    /* Logo | Products/Rooms | Services/About | Planet */
-    grid-template-columns: 1fr 1fr 1fr; /* 3 columns: Logo+P/R | S/A | Planet */
-    gap: 30px;
-  }
-  .logo-column {
-    grid-column: 1 / 2; /* Logo takes first slot */
-  }
-  .links-column:nth-of-type(1) {
-    grid-column: 1 / 2;
-    margin-top: 20px; /* Products below logo */
-  }
-  .links-column:nth-of-type(2) {
-    grid-column: 1 / 2;
-    margin-top: 20px; /* Rooms below Products */
-  }
 
-  .links-column:nth-of-type(3) {
-    grid-column: 2 / 3; /* Services */
-  }
-  .links-column:nth-of-type(4) {
-    grid-column: 2 / 3;
-    margin-top: 20px; /* About below Services */
-  }
-
-  .planet-column {
-    grid-column: 3 / 4; /* Planet column */
-  }
-
-  .footer-logo {
-    font-size: 30px;
-  }
-  .footer-column h4 {
-    font-size: 17px;
-  }
-  .links-column a,
-  .planet-column p,
-  .learn-more-footer {
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   /* Mobile */
   .app-footer {
     padding: 40px 0 20px 0;
   }
-  .container {
-    padding: 0 5%;
-  }
+
   .footer-main-content {
     grid-template-columns: 1fr; /* Stack all columns */
     text-align: left; /* Center text in stacked columns */

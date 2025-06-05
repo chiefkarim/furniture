@@ -205,9 +205,9 @@ function handleSubscription() {
   font-family: var(--font-sans);
 }
 .container {
-  max-width: 1280px;
+  max-width: 1444px;
   margin: 0 auto;
-  padding: 48px 7%;
+  padding: 48px clamp(1rem, 5vw, 6.5rem);
   position: relative;
 }
 .slider-track {
@@ -404,7 +404,7 @@ function handleSubscription() {
     flex-flow: column;
   }
   .container {
-    padding: 70px 0;
+    padding: 70px clamp(1rem, 5vw, 6.5rem);
   }
   /* 1. Viewport du slider */
   .slider-viewport {
