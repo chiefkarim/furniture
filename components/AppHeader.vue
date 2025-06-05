@@ -160,38 +160,42 @@ const isMenuOpen = ref(false);
 .main-nav a {
   text-decoration: none;
   color: var(--text-secondary);
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 400;
   transition: color 0.3s ease;
+  letter-spacing: 0;
+  line-height: 25px;
 }
 .main-nav a:hover {
   color: #8c5046;
 }
 .tagline {
-  font-family: var(--font-serif);
-  font-size: 11px;
+  font-family: var(--font-sans);
+  font-size: 14px;
   color: var(--text-primary);
   text-transform: uppercase;
-  letter-spacing: 2px;
   margin-bottom: 50px;
+  line-height: 20px;
+  letter-spacing: 1px;
   font-weight: 700;
 }
 .hero-left h1 {
   font-family: var(--font-serif);
-  font-size: 56px;
+  font-size: 50px;
   color: var(--text-primary);
-  line-height: 1.25;
+  line-height: 70px;
   margin-bottom: 30px;
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.4px;
 }
 .description {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 22px;
   color: var(--text-secondary);
-  line-height: 25px;
-  font-weight: 300;
+  line-height: 30.8px;
+  font-weight: 400;
   margin-bottom: 48px;
+  letter-spacing: 0;
 }
 .scroll-indicator {
   width: 44px;
@@ -251,18 +255,6 @@ const isMenuOpen = ref(false);
   height: 20px;
 }
 
-/* --- Responsive pour desktop/tablette --- */
-@media (max-width: 1200px) {
-  .hero-left h1 {
-    font-size: 48px;
-  }
-  .logo {
-    font-size: 30px;
-  }
-  .main-nav li {
-    margin-left: 35px;
-  }
-}
 @media (max-width: 992px) {
   .app-header {
     height: 100vh;
@@ -287,16 +279,12 @@ const isMenuOpen = ref(false);
   }
   .tagline {
     color: white;
-    letter-spacing: 1;
+    letter-spacing: 1px;
     line-height: 20px;
     font-size: 14px;
-    font-family: var(--text-secondary);
+    font-family: var(--font-sans);
   }
-  .description {
-    color: white;
-    font-weight: 400;
-    font-size: 18px;
-  }
+
   .scroll-indicator {
     border-color: white;
     color: white;
@@ -305,6 +293,7 @@ const isMenuOpen = ref(false);
   .hero-left h1 {
     color: white;
     line-height: 40px;
+    font-size: 35px;
     font-weight: 400;
     letter-spacing: -0.3px;
   }
@@ -381,12 +370,7 @@ const isMenuOpen = ref(false);
     min-height: 300px;
     order: 1;
   }
-  .hero-left h1 {
-    font-size: 36px;
-  }
-  .description {
-    font-size: 16px;
-  }
+
   .chat-icon {
     top: 20px;
     right: 20px;
@@ -423,29 +407,19 @@ const isMenuOpen = ref(false);
     color: white;
     font-size: 34px;
   }
-  .tagline {
-    color: white;
-    letter-spacing: 1;
-    line-height: 20px;
-    font-size: 14px;
-    font-family: var(--text-secondary);
-  }
+
   .description {
     color: white;
     font-weight: 400;
     font-size: 18px;
+    list-style: 25px;
   }
   .scroll-indicator {
     border-color: white;
     color: white;
     background-color: transparent;
   }
-  .hero-left h1 {
-    color: white;
-    line-height: 40px;
-    font-weight: 400;
-    letter-spacing: -0.3px;
-  }
+
   .chat-icon {
     display: none;
   }

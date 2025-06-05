@@ -3,7 +3,7 @@
 :root {
   /* Color Palette */
   --text-primary: #a06056;
-  --text-secondary: #706458e5; /* Consider if alpha is always needed, or use rgba() for #706458 */
+  --text-secondary: #706458; /* Consider if alpha is always needed, or use rgba() for #706458 */
   --bg-main: #f3eee8; /* Renamed from --bg-left-column for more global applicability */
   --icon-color-primary: var(--text-primary);
   --icon-color-secondary: var(--text-secondary);
