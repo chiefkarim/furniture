@@ -116,13 +116,13 @@ const formattedTotalPages = computed(() => {
 /* Fond principal (beige clair) */
 .find-room-section {
   background-color: #f3efe8;
-  padding: 0 clamp(1rem, 5vw, 6.5rem);
+  padding: 48px clamp(1rem, 5vw, 6.5rem);
   font-family: var(--font-sans);
 }
 
 /* Centrage et largeur max (identique à la capture) */
 .container {
-  margin: 48px auto 0 48px;
+  margin: 0 auto;
 }
 
 /* Titre principal */
@@ -255,9 +255,9 @@ const formattedTotalPages = computed(() => {
 @media (min-width: 992px) {
   .container {
     max-width: 1444px;
-    margin: 70px auto 70px auto;
+    margin: 0 auto;
     position: relative;
-    padding: 0 clamp(1rem, 5vw, 6.5rem);
+    padding: 70px clamp(1rem, 5vw, 6.5rem);
     display: flex;
     flex-direction: column;
     align-items: stretch;

@@ -59,7 +59,7 @@
   background-color: var(
     --bg-main
   ); /* Assuming same background as other sections */
-  padding: 70px 0; /* Adjust vertical padding */
+  padding: 70px clamp(1rem, 5vw, 6.5rem);
   font-family: var(--font-sans);
 }
 
@@ -67,7 +67,6 @@
   max-width: 1444px; /* ou ce que tu préfères */
   margin: 0 auto;
   position: relative;
-  padding: 70px clamp(1rem, 5vw, 6.5rem);
 }
 
 .services-grid {
@@ -78,7 +77,7 @@
      Let's try: title ~40-45%, services ~27-30% each.
   */
   grid-template-columns: 1fr 1fr; /* Example: 1.5 + 1 + 1 = 3.5 parts. Title is 1.5/3.5 ~ 43% */
-  gap: 40px; /* Gap between columns */
+  gap: 30px; /* Gap between columns */
 }
 
 .main-title-column {
@@ -91,7 +90,6 @@
   font-size: 55px; /* Large title */
   color: var(--text-secondary); /* Title uses secondary text color in image */
   line-height: 60px;
-  font-weight: 400; /* Design looks like a regular weight */
   font-weight: 400;
   letter-spacing: -0.6px;
   margin-bottom: 30px; /* Space below title before link */
@@ -137,7 +135,7 @@
   font-size: 18px;
   line-height: 25px;
   font-weight: 400;
-  color: var(--text-secondary); /* Service description uses secondary color */
+  color: var(--brown-light); /* Service description uses secondary color */
   letter-spacing: 0;
   margin: 0;
 }
@@ -150,19 +148,19 @@
 
   .services-grid {
     grid-template-columns: 1fr; /* Stack all columns */
-    gap: 40px; /* Gap between stacked sections */
+    gap: 41px; /* Gap between stacked sections */
   }
-  .main-title-column {
-    font-size: 35px;
-    letter-spacing: -0.3px;
-  }
+
   .main-title-column h1 {
+    letter-spacing: -0.3px;
+    line-height: 40px;
     font-size: 40px; /* Scale down */
-    margin-bottom: 25px;
+    color: var(--brown-dark);
+    margin-bottom: 32px;
   }
   .find-out-more-link {
     margin-top: 0; /* Reset margin-top when stacked */
-    font-size: 17px;
+    font-family: "Lato";
     font-weight: 900;
   }
   .services-column {
