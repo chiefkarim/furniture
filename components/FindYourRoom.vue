@@ -12,21 +12,30 @@
         you need
       </p>
       <!-- TODO: add loadeing indicators on the imags or have placeholders -->
-      <div
-        v-for="(room, index) in visibleRooms"
-        :key="room.name"
-        class="room-card"
-      >
-        <!-- Partie image + nom -->
-        <div class="image-wrapper">
-          <img :src="room.image" :alt="room.name" class="card-bg-image" />
-          <h3 class="room-name" v-html="room.name"></h3>
-          <button v-if="index === 0" class="next-link" @click.prevent="goNext">
-            Next <span class="arrow">›</span>
-          </button>
-        </div>
-
-        <!-- ✅ Ajouté seulement en bas du premier élément -->
+      <div class="">
+        <UCarousel
+          ref="carouselRef"
+          v-slot="{ item: room, index }"
+          loop
+          :align="'start'"
+          :items="rooms"
+          :ui="{
+            item: 'basis-full  md:basis-1/2 shrink-0',
+          }"
+        >
+          <div class="room-card">
+            <div class="image-wrapper">
+              <img :src="room.image" :alt="room.name" class="card-bg-image" />
+              <h3 class="room-name" v-html="room.name"></h3>
+            </div>
+            <div class="news-wrapper">
+              <span class="news-arrivals-tag">News arrivals</span>
+            </div>
+          </div>
+        </UCarousel>
+        <button class="next-link" @click.prevent="goNext">
+          Next <span class="arrow">›</span>
+        </button>
       </div>
     </div>
 
@@ -43,17 +52,19 @@
 </template>
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
-
 // Définir le type Room
 interface Room {
   name: string;
   image: string;
 }
 
+const carouselRef = ref();
 // 1. Données statiques (exemple)
 const rooms = ref<Room[]>([
   { name: "Bedroom", image: "/images/bed-room-card.png" },
   { name: "Living<br/>room", image: "/images/living-room-card.jpg" },
+  { name: "Bedroom 2", image: "/images/bed-room-card.png" },
+  { name: "Living<br/>room 2", image: "/images/living-room-card.jpg" },
 ]);
 
 // 2. Pagination
@@ -87,6 +98,15 @@ onMounted(() => {
   // On attend que le composant soit monté pour accéder à window
   updateItemsPerPage();
   window.addEventListener("resize", updateItemsPerPage);
+
+  if (carouselRef.value)
+    carouselRef.value.emblaApi.on("select", () => {
+      if (currentPage.value < totalPages.value) {
+        currentPage.value++;
+      } else {
+        currentPage.value = 1;
+      }
+    });
 });
 
 onUnmounted(() => {
@@ -95,10 +115,8 @@ onUnmounted(() => {
 
 // 6. Fonction "Next" pour la pagination
 function goNext() {
-  if (currentPage.value < totalPages.value) {
-    currentPage.value++;
-  } else {
-    currentPage.value = 1;
+  if (carouselRef.value) {
+    carouselRef.value.emblaApi.scrollNext();
   }
 }
 
@@ -140,6 +158,7 @@ const formattedTotalPages = computed(() => {
 
 /* Sous-texte sous le titre */
 .info-text {
+  width: 100%;
   font-size: 18px;
   font-weight: 400;
   line-height: 25px;
@@ -162,7 +181,6 @@ const formattedTotalPages = computed(() => {
   flex-direction: row;
   background-color: transparent; /* Le fond beige est celui de .find-room-section */
   align-items: flex-start;
-  margin: 0 8px 0 0;
 }
 
 /* Partie gauche : l’image et le titre de la pièce */
@@ -296,13 +314,17 @@ const formattedTotalPages = computed(() => {
   .room-cards-container .next-link {
     display: block;
     position: absolute;
-    bottom: -70px;
+    bottom: 70px;
   }
   .pagination-controls .next-link {
     display: none;
   }
   .news-arrivals-tag {
     color: var(--brown-light);
+  }
+  .info-text {
+    width: auto;
+    flex-shrink: 0;
   }
 }
 </style>

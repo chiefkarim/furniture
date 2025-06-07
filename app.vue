@@ -1,10 +1,13 @@
 <template>
-  <AppHeader />
+  <UApp>
+    <AppHeader />
 
-  <FindYourRoom />
-  <About />
-  <Trends />
-  <Footer />
+    <FindYourRoom />
+    <About />
+    <Trends />
+    <Footer />
+  </UApp>
+
   <!-- You can add other page content below the header -->
   <!--
     <main>
