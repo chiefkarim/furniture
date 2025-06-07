@@ -200,7 +200,7 @@ function handleSubscription() {
 .latest-trends-section {
   background-color: white;
   font-family: var(--font-sans);
-  padding: 48px clamp(1rem, 5vw, 6.5rem);
+  padding: 48px 0;
 }
 .container {
   max-width: 1444px;
@@ -397,6 +397,9 @@ function handleSubscription() {
 /* ----------------------------------------------------------- */
 @media (min-width: 992px) {
   /* On masque la grille mobile/tablet */
+  .latest-trends-section {
+    padding: 70px clamp(1rem, 5vw, 6.5rem);
+  }
 
   .inspiration-images {
     display: none;
@@ -404,9 +407,7 @@ function handleSubscription() {
   .inspirations-showcase {
     flex-flow: column;
   }
-  .container {
-    padding: 70px clamp(1rem, 5vw, 6.5rem);
-  }
+
   /* 1. Viewport du slider */
   .slider-viewport {
     display: block;
@@ -520,6 +521,8 @@ function handleSubscription() {
   .subscription-form {
     flex-direction: row;
     align-items: center;
+    max-width: none;
+    width: auto;
   }
   .subscription-form input[type="email"] {
     min-width: 266px;
