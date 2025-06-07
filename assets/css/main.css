@@ -6,6 +6,7 @@
   --text-secondary: #706458; /* Consider if alpha is always needed, or use rgba() for #706458 */
   --brown-dark: #534b42;
   --brown-light: #706458e5;
+  --on-background-primary: #121212;
   --bg-main: #f3eee8; /* Renamed from --bg-left-column for more global applicability */
   --icon-color-primary: var(--text-primary);
   --icon-color-secondary: var(--text-secondary);

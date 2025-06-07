@@ -200,22 +200,23 @@ function handleSubscription() {
 .latest-trends-section {
   background-color: white;
   font-family: var(--font-sans);
+  padding: 48px clamp(1rem, 5vw, 6.5rem);
 }
 .container {
   max-width: 1444px;
   margin: 0 auto;
-  padding: 48px clamp(1rem, 5vw, 6.5rem);
   position: relative;
 }
 .slider-track {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .trends-subscription {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 32px;
 }
 
 .trends-info {
@@ -224,19 +225,19 @@ function handleSubscription() {
 .trends-info h2 {
   font-family: var(--font-serif);
   font-size: 35px;
-  color: #121212;
+  color: var(--on-background-primary);
   line-height: 40px;
   font-weight: 400;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   text-align: left;
   letter-spacing: -0.3px;
 }
 .trends-info p {
   font-size: 18px;
-  color: #706458e5;
+  color: var(--brown-light);
   font-weight: 400;
   line-height: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   max-width: 450px;
 }
 .learn-more-link {
@@ -262,29 +263,31 @@ function handleSubscription() {
   gap: 16px;
 }
 .subscription-form input[type="email"] {
-  padding: 12px 15px;
+  padding: 15px 15px;
   border: 1px solid var(--light-border-color, #ddd);
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 18px;
   background-color: #f3eee84d;
-  color: var(--text-secondary);
+  color: #00000073;
   outline: none;
   border-radius: 0;
   line-height: 25px;
+  font-weight: 400;
 }
 .subscription-form input[type="email"]::placeholder {
-  color: #aaa;
+  color: var(--brown-light);
 }
 .subscription-form button[type="submit"] {
-  padding: 12px 25px;
-  background-color: #534b42;
+  padding: 12px 29px;
+  background-color: var(--brown-dark);
   color: var(--white);
   border: 1px solid var(--text-secondary);
   cursor: pointer;
   font-family: "Karla";
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
   line-height: 25px;
+  letter-spacing: 0.3px;
   white-space: nowrap;
   transition: background-color 0.3s ease;
   border-radius: 0;
@@ -324,11 +327,11 @@ function handleSubscription() {
 }
 
 .inspiration-name {
-  margin-top: 15px;
+  margin-bottom: 0;
   font-size: 15px;
   font-family: "Lato";
   text-transform: capitalize;
-  color: #121212;
+  color: var(--on-background-primary);
   font-weight: 400;
   text-align: left;
   line-height: 20px;
@@ -337,7 +340,7 @@ function handleSubscription() {
 .inspiration-text-content {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 20px;
   margin-top: 64px;
   margin-bottom: 40px;
   text-align: left;
@@ -346,7 +349,7 @@ function handleSubscription() {
 .inspirations-title {
   font-family: var(--font-serif);
   font-size: 35px;
-  color: var(--text-secondary);
+  color: var(--brown-dark);
   line-height: 40px;
   letter-spacing: -0.3px;
   font-weight: 400;
@@ -355,7 +358,7 @@ function handleSubscription() {
 .inspirations-description {
   font-size: 18px;
   line-height: 25px;
-  color: var(--text-secondary);
+  color: var(--brown-light);
   font-family: var(--font-sans);
   font-weight: 400;
   margin: 0;
@@ -373,17 +376,18 @@ function handleSubscription() {
 .inspiration-pagination .next-arrow {
   width: 32px;
   height: 32px;
-  font-size: 18px;
+  font-size: 25px;
 }
 .inspiration-pagination .page-info {
-  font-size: 14px;
-  color: var(--text-secondary);
-  opacity: 0.7;
+  font-size: 18px;
+  color: var(--brown-light);
+  line-height: 25px;
+  letter-spacing: 0;
+  font-weight: 400;
 }
 .inspiration-image-wrapper {
   flex: 0 0 calc(100% / 2.5);
   box-sizing: border-box;
-  padding-right: 16px;
   text-align: left;
 }
 
@@ -409,13 +413,13 @@ function handleSubscription() {
     width: 100%;
     overflow: hidden;
     position: relative;
-    margin-bottom: 24px;
   }
 
   /* 2. Track contenant toutes les cartes en flex-row */
   .slider-track {
     display: flex;
     transition: transform 0.5s ease;
+    gap: 40px;
   }
 
   .inspiration-image-card {
@@ -440,7 +444,7 @@ function handleSubscription() {
   }
   .nav-arrow {
     background-color: transparent;
-    border: 1.5px solid var(--text-primary);
+    border: 2px solid var(--text-primary);
     color: var(--text-primary);
     border-radius: 50%;
     width: 36px;
@@ -448,7 +452,6 @@ function handleSubscription() {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
     line-height: 1;
     cursor: pointer;
     transition:
@@ -466,9 +469,8 @@ function handleSubscription() {
     margin-left: 8px;
   }
   .page-info {
-    font-size: 14px;
-    color: var(--text-secondary);
-    opacity: 0.7;
+    font-size: 18px;
+    color: var(--brown-light);
   }
 
   /* 5. Texte & disposition texte à droite */
@@ -477,11 +479,13 @@ function handleSubscription() {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 40px;
     align-items: flex-start;
+    margin-top: 40px;
+    margin-bottom: 0;
   }
   .inspirations-title {
     font-family: var(--font-serif);
     font-size: 45px;
-    color: var(--text-secondary);
+    color: var(--brown-dark);
     line-height: 40px;
     letter-spacing: -0.3px;
     font-weight: 300;
@@ -512,8 +516,13 @@ function handleSubscription() {
     flex-direction: row;
     justify-content: space-between;
   }
-  .slider-track {
-    display: flex;
+
+  .subscription-form {
+    flex-direction: row;
+    align-items: center;
+  }
+  .subscription-form input[type="email"] {
+    min-width: 266px;
   }
 }
 </style>
