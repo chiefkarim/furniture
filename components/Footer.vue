@@ -6,6 +6,26 @@
           <div class="footer-logo">antic</div>
         </div>
         <div class="footer-column links-column">
+          <h4>About</h4>
+          <ul>
+            <li><a href="#">Our story</a></li>
+            <li><a href="#">Our stores</a></li>
+            <li><a href="#">Our partners</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column links-column">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Click and collect</a></li>
+            <li><a href="#">Conception</a></li>
+            <li><a href="#">Installation</a></li>
+            <li><a href="#">Advices</a></li>
+            <li><a href="#">Gift card</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column links-column">
           <h4>Products</h4>
           <ul>
             <li><a href="#">Furniture</a></li>
@@ -27,26 +47,6 @@
             <li><a href="#">Office</a></li>
             <li><a href="#">Laundry</a></li>
             <li><a href="#">Garage</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-column links-column">
-          <h4>Services</h4>
-          <ul>
-            <li><a href="#">Click and collect</a></li>
-            <li><a href="#">Conception</a></li>
-            <li><a href="#">Installation</a></li>
-            <li><a href="#">Advices</a></li>
-            <li><a href="#">Gift card</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-column links-column">
-          <h4>About</h4>
-          <ul>
-            <li><a href="#">Our story</a></li>
-            <li><a href="#">Our stores</a></li>
-            <li><a href="#">Our partners</a></li>
           </ul>
         </div>
 
@@ -122,8 +122,8 @@
   display: grid;
   /* 1 for logo, 4 for links, 1.5 for planet. Adjust fr units for proportions. */
   grid-template-columns: 1fr repeat(4, 0.8fr) 1.5fr;
-  gap: 30px; /* Gap between columns */
-  margin-bottom: 50px; /* Space before social icons */
+  gap: 48px; /* Gap between columns */
+  margin-bottom: 48px; /* Space before social icons */
   padding-bottom: 40px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Very subtle separator */
 }
@@ -132,18 +132,22 @@
   font-family: var(--font-sans);
   font-size: 25px;
   color: var(
-    --text-secondary
+    --brown-dark
   ); /* Using secondary for headings in footer to be less prominent */
   font-weight: 600; /* Bolder headings */
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   line-height: 30px;
+  letter-spacing: -0.2px;
+}
+.footer-main-content .footer-column:first-child {
+  margin-right: 44px;
 }
 
 .footer-logo {
   font-family: var(--font-serif); /* Matches header logo */
   font-size: 34px; /* Matches header logo */
   font-weight: 700;
-  color: var(--text-secondary); /* Logo in footer is secondary color */
+  color: var(--brown-dark); /* Logo in footer is secondary color */
   line-height: 25px;
   letter-spacing: 2px; /* Slightly less than header if needed */
 }
@@ -164,6 +168,7 @@
   font-size: 18px;
   line-height: 25px;
   font-weight: 400;
+  letter-spacing: 0;
 }
 
 .links-column a:hover {
@@ -209,7 +214,7 @@
   display: flex;
   justify-content: center; /* Center social icons */
   align-items: center;
-  margin-bottom: 40px; /* Space before bottom bar */
+  margin-bottom: 20px; /* Space before bottom bar */
 }
 
 .social-icon {
@@ -232,18 +237,26 @@
   font-size: 18px; /* Smaller text for bottom bar */
   color: var(--text-secondary);
   opacity: 0.8; /* Slightly faded out */
-  padding-top: 20px;
   letter-spacing: 0;
   line-height: 25px;
   opacity: 0.7;
   font-weight: 400;
 }
+.utility-links a,
+.copyright {
+  text-decoration: none;
+  color: #706458b2;
+  display: inline-block; /* Ensure they space out */
+  text-align: left;
+  line-height: 25px;
+  letter-spacing: 0;
+  font-weight: 400;
+}
 
 .utility-links a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  margin-left: 20px;
+  margin: 0 10px 0 0; /* Adjust spacing for utility links */
 }
+
 .utility-links a:hover {
   color: var(--text-primary);
   text-decoration: underline;
@@ -260,7 +273,7 @@
   .footer-main-content {
     grid-template-columns: 1fr; /* Stack all columns */
     text-align: left; /* Center text in stacked columns */
-    gap: 30px;
+    gap: 40px;
     border-bottom: none; /* Remove border on mobile */
     padding-bottom: 0;
   }
@@ -277,16 +290,12 @@
     letter-spacing: -0.2px;
   }
 
-  .footer-logo {
+  .logo-column {
     margin-bottom: 10px;
-    font-size: 34px;
-    color: #534b42;
     align-self: center;
     text-align: center;
   }
-  .links-column ul {
-    /* Optional: display as inline-block or flex-wrap for mobile if many items */
-  }
+
   .links-column:nth-of-type(n) {
     /* Reset grid placement for stacking */
     grid-column: auto;
@@ -298,7 +307,7 @@
   }
 
   .footer-social-media {
-    margin-bottom: 30px;
+    margin: 40px 0;
   }
   .social-icon {
     margin: 0 8px;
@@ -312,12 +321,7 @@
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     align-items: flex-start;
   }
-  .utility-links a {
-    margin: 0 10px; /* Adjust spacing for utility links */
-    display: inline-block; /* Ensure they space out */
-    margin-bottom: 5px; /* If they wrap */
-    text-align: left;
-  }
+
   .footer-main-content {
     display: flex;
     flex-direction: column;
