@@ -2,19 +2,22 @@
   <section id="rooms" class="find-room-section container">
     <!-- Titre principal -->
     <h2 class="section-title">Find your room</h2>
-    <!-- Sous-texte sous le titre -->
-    <p class="info-text">
-      Dining room, bedroom, bathroom or office. Find what you need
-    </p>
 
     <!-- Conteneur des cartes -->
     <div class="room-cards-container">
+      <p class="info-text">
+        Dining room,<br />
+        bedroom, bathroom <br />
+        or office. Find what<br />
+        you need
+      </p>
+      <!-- TODO: add loadeing indicators on the imags or have placeholders -->
       <div v-for="room in visibleRooms" :key="room.name" class="room-card">
         <!-- Partie “Image + nom de la pièce” -->
         <div class="image-wrapper">
           <img :src="room.image" :alt="room.name" class="card-bg-image" />
           <!-- Nom de la pièce, centré sur l’image -->
-          <h3 class="room-name">{{ room.name }}</h3>
+          <h3 class="room-name" v-html="room.name"></h3>
         </div>
 
         <!-- Partie “News arrivals” à droite de l’image -->
@@ -47,7 +50,7 @@ interface Room {
 // 1. Données statiques (exemple)
 const rooms = ref<Room[]>([
   { name: "Bedroom", image: "/images/bed-room-card.png" },
-  { name: "Living room", image: "/images/living-room-card.jpg" },
+  { name: "Living<br/>room", image: "/images/living-room-card.jpg" },
 ]);
 
 // 2. Pagination
@@ -113,32 +116,33 @@ const formattedTotalPages = computed(() => {
 /* Fond principal (beige clair) */
 .find-room-section {
   background-color: #f3efe8;
-  padding: 48px clamp(1rem, 5vw, 6.5rem);
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  padding: 0 clamp(1rem, 5vw, 6.5rem);
+  font-family: var(--font-sans);
 }
 
 /* Centrage et largeur max (identique à la capture) */
 .container {
-  margin: 0 auto;
+  margin: 48px auto 0 48px;
 }
 
 /* Titre principal */
 .section-title {
-  font-family: "Georgia", serif;
+  font-family: var(--font-serif);
   font-size: 32px;
   font-weight: 400;
   line-height: 1.2;
-  color: #4a4131;
-  margin-bottom: 12px;
+  color: var(--brown-dark);
+  margin-bottom: 0;
 }
 
 /* Sous-texte sous le titre */
 .info-text {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
-  line-height: 1.75;
-  color: #8a8175;
-  margin-bottom: 24px;
+  line-height: 25px;
+  color: var(--light-brown);
+  letter-spacing: 0px;
+  margin-top: 0;
 }
 
 /* Conteneur des cartes, en colonne par défaut (mobile) */
@@ -146,6 +150,7 @@ const formattedTotalPages = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  margin-top: 20px;
 }
 
 /* Chaque carte devient un flex-row (image à gauche, texte à droite) */
@@ -154,6 +159,7 @@ const formattedTotalPages = computed(() => {
   flex-direction: row;
   background-color: transparent; /* Le fond beige est celui de .find-room-section */
   align-items: flex-start;
+  margin: 0 8px 0 0;
 }
 
 /* Partie gauche : l’image et le titre de la pièce */
@@ -163,7 +169,6 @@ const formattedTotalPages = computed(() => {
   width: 60%; /* 60% de la largeur de la carte */
   aspect-ratio: 3 / 4.2; /* Même ratio que sur la photo */
   border-radius: 1px;
-  overflow: hidden;
   background-color: #ffffff; /* On peut garder un fond blanc derrière l’image */
 }
 
@@ -179,15 +184,16 @@ const formattedTotalPages = computed(() => {
 .room-name {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: "Georgia", serif;
-  font-size: 28px;
-  color: #a15c4a;
+  right: 1%;
+  transform: translate(35%, -50%);
+  font-family: var(--font-serif);
   font-weight: 400;
-  line-height: 1.1;
+  font-size: 35px;
+  color: var(--text-primary);
+  font-weight: 400;
+  line-height: 40px;
+  letter-spacing: -0.3px;
   text-align: center;
-  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
   pointer-events: none; /* Pour s’assurer qu’on ne clique pas sur le texte */
 }
 
@@ -202,9 +208,11 @@ const formattedTotalPages = computed(() => {
 
 /* Style du label “News arrivals” */
 .news-arrivals-tag {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 400;
-  color: #8a8175;
+  line-height: 25px;
+  letter-spacing: 0px;
+  color: #00000073;
   background-color: transparent; /* Sur fond beige clair du conteneur parent */
 }
 
@@ -224,7 +232,7 @@ const formattedTotalPages = computed(() => {
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
-  color: #a15c4a;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
 }
@@ -236,19 +244,20 @@ const formattedTotalPages = computed(() => {
 
 /* Texte “01 / 05” */
 .page-info {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
-  color: #8a8175;
-  opacity: 0.6;
+  color: var(--brown-light);
+  line-height: 25px;
+  letter-spacing: 0;
 }
 
 /* ---- Responsive Desktop (≥ 768px) pour 2 cartes côte à côte ---- */
 @media (min-width: 992px) {
   .container {
     max-width: 1444px;
-    margin: 0 auto;
+    margin: 70px auto 70px auto;
     position: relative;
-    padding: 70px clamp(1rem, 5vw, 6.5rem);
+    padding: 0 clamp(1rem, 5vw, 6.5rem);
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -257,19 +266,28 @@ const formattedTotalPages = computed(() => {
   .room-cards-container {
     flex-direction: row;
     gap: 16px;
+
+    margin-top: 48px;
   }
 
   .room-card {
     flex: 1;
   }
-
+  .room-name {
+    font-size: 55px;
+    letter-spacing: -0.6px;
+    line-height: 60px;
+  }
   /* Ajuster taille du titre sur desktop */
   .section-title {
-    font-size: 44px;
+    font-size: 55px;
+    line-height: 60px;
+    letter-spacing: -0.6px;
+    color: var(--text-secondary);
   }
-  .info-text {
-    font-size: 16px;
-    margin-bottom: 32px;
+
+  .news-arrivals-tag {
+    color: var(--brown-light);
   }
 }
 </style>

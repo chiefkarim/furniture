@@ -4,6 +4,8 @@
   /* Color Palette */
   --text-primary: #a06056;
   --text-secondary: #706458; /* Consider if alpha is always needed, or use rgba() for #706458 */
+  --brown-dark: #534b42;
+  --brown-light: #706458e5;
   --bg-main: #f3eee8; /* Renamed from --bg-left-column for more global applicability */
   --icon-color-primary: var(--text-primary);
   --icon-color-secondary: var(--text-secondary);
@@ -14,8 +16,6 @@
   /* Fonts */
   --font-serif: "Merriweather", serif;
   --font-sans: "Varta", sans-serif;
-
-  /* You can add more global variables here for spacing, transitions, etc. */
 }
 
 /* Basic Body Reset and Default Styling */
@@ -25,7 +25,7 @@ body {
   font-family: var(--font-sans); /* Default body font */
   background-color: var(--bg-main); /* Default background for the whole page */
   color: var(--text-secondary); /* Default text color */
-  line-height: 1.6;
+  line-height: 25px;
 }
 
 *,
