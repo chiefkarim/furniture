@@ -12,18 +12,21 @@
         you need
       </p>
       <!-- TODO: add loadeing indicators on the imags or have placeholders -->
-      <div v-for="room in visibleRooms" :key="room.name" class="room-card">
-        <!-- Partie “Image + nom de la pièce” -->
+      <div
+        v-for="(room, index) in visibleRooms"
+        :key="room.name"
+        class="room-card"
+      >
+        <!-- Partie image + nom -->
         <div class="image-wrapper">
           <img :src="room.image" :alt="room.name" class="card-bg-image" />
-          <!-- Nom de la pièce, centré sur l’image -->
           <h3 class="room-name" v-html="room.name"></h3>
+          <button v-if="index === 0" class="next-link" @click.prevent="goNext">
+            Next <span class="arrow">›</span>
+          </button>
         </div>
 
-        <!-- Partie “News arrivals” à droite de l’image -->
-        <div class="news-wrapper">
-          <span class="news-arrivals-tag">News arrivals</span>
-        </div>
+        <!-- ✅ Ajouté seulement en bas du premier élément -->
       </div>
     </div>
 
@@ -169,7 +172,6 @@ const formattedTotalPages = computed(() => {
   width: 60%; /* 60% de la largeur de la carte */
   aspect-ratio: 3 / 4.2; /* Même ratio que sur la photo */
   border-radius: 1px;
-  background-color: #ffffff; /* On peut garder un fond blanc derrière l’image */
 }
 
 /* L’image elle-même */
@@ -250,7 +252,9 @@ const formattedTotalPages = computed(() => {
   line-height: 25px;
   letter-spacing: 0;
 }
-
+.room-cards-container .next-link {
+  display: none;
+}
 /* ---- Responsive Desktop (≥ 768px) pour 2 cartes côte à côte ---- */
 @media (min-width: 992px) {
   .container {
@@ -285,7 +289,18 @@ const formattedTotalPages = computed(() => {
     letter-spacing: -0.6px;
     color: var(--text-secondary);
   }
-
+  .pagination-controls {
+    margin-top: 48px;
+    width: 20%;
+  }
+  .room-cards-container .next-link {
+    display: block;
+    position: absolute;
+    bottom: -70px;
+  }
+  .pagination-controls .next-link {
+    display: none;
+  }
   .news-arrivals-tag {
     color: var(--brown-light);
   }

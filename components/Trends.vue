@@ -197,9 +197,6 @@ function handleSubscription() {
 </script>
 
 <style scoped>
-/* ----------------------------------------------------------- */
-/*     Partie “Trending Subscription” (styles mobile originaux) */
-/* ----------------------------------------------------------- */
 .latest-trends-section {
   background-color: white;
   font-family: var(--font-sans);
