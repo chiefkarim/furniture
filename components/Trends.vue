@@ -42,7 +42,7 @@
               :items="inspirationImages"
               :slidesToScroll="2"
               :ui="{
-                item: 'basis-[40%] ps-[30px]',
+                item: 'basis-[40%] [&:not(:first-child)]:pxs-[30px]',
               }"
               class="inspiration-image-wrapper"
             >
