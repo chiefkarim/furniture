@@ -65,21 +65,7 @@
 
       <!-- Icône de chat -->
       <button class="chat-icon">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M21 11.5C21 16.7467 16.7467 21 11.5 21C10.5359 21 9.60445 20.8544 8.72965 20.5827L3 22L4.41734 16.2703C3.14563 14.3956 3 12.9641 3 11.5C3 6.25329 7.25329 2 11.5 2C16.7467 2 21 6.25329 21 11.5Z"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <img src="/images/contact.svg" />
       </button>
     </header>
   </div>
@@ -154,8 +140,11 @@ const isMenuOpen = ref(false);
   display: flex;
   align-items: center;
 }
-.main-nav li {
-  margin-left: 40px;
+.main-nav li:not(:first-child) {
+  margin-left: 24px;
+}
+.main-nav li:first-child {
+  margin-left: 32px;
 }
 .main-nav a {
   text-decoration: none;
@@ -224,9 +213,9 @@ const isMenuOpen = ref(false);
   background-size: cover;
   background-position: center;
   position: absolute;
-  width: 43%;
+  width: 50%;
   height: 100%;
-  right: 0;
+  right: -20px;
 }
 .chat-icon {
   position: absolute;
@@ -234,25 +223,17 @@ const isMenuOpen = ref(false);
   right: 8px;
   width: 44px;
   height: 44px;
-  background-color: var(--white);
-  border: 1px solid var(--light-border-color);
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: var(--icon-color-secondary);
-  box-shadow: 0 2px 8px var(--soft-shadow-color);
   z-index: 20;
   padding: 0;
 }
-.chat-icon:hover {
-  background-color: #f7f7f7;
-  border-color: #e0e0e0;
-}
-.chat-icon svg {
-  width: 20px;
-  height: 20px;
+
+.chat-icon img {
+  width: 50px;
+  height: 50px;
 }
 
 @media (max-width: 992px) {
