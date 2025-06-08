@@ -287,7 +287,7 @@ const formattedTotalPages = computed(() => {
 
   .room-cards-container {
     gap: 16px;
-    grid-template-columns: 0.14fr 1fr;
+    grid-template-columns: 0.15fr 1fr;
     grid-template-rows: 1fr 0.2fr;
     margin-top: 48px;
   }

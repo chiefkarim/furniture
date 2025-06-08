@@ -278,9 +278,7 @@
     border-bottom: none; /* Remove border on mobile */
     padding-bottom: 0;
   }
-  .footer-column {
-    margin-bottom: 20px; /* Add space between stacked sections */
-  }
+
   .footer-column h4 {
     color: #121212;
     text-transform: capitalize;
