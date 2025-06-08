@@ -36,7 +36,7 @@
         </span>
       </div>
       <button class="next-link" @click.prevent="goNext">
-        Next <span class="arrow">›</span>
+        Next <img class="arrow" src="/images/borderless-right-arrow.svg" />
       </button>
     </div>
   </section>
@@ -249,18 +249,21 @@ const formattedTotalPages = computed(() => {
   border: none;
   padding: 0;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--text-primary);
   margin-top: 33px;
   justify-self: start;
+  align-self: start;
   grid-row: 3;
   grid-column: 1;
 }
 
 .next-link .arrow {
+  display: inline;
   margin-left: 6px;
-  font-size: 18px;
+  width: 9px;
+  height: 16px;
 }
 
 /* Texte “01 / 05” */
@@ -318,6 +321,8 @@ const formattedTotalPages = computed(() => {
     justify-self: start;
     grid-column: 2;
     grid-row: 2;
+    align-self: start;
+    font-size: 20px;
   }
 
   .news-arrivals-tag {
