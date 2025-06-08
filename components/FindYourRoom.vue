@@ -282,7 +282,7 @@ const formattedTotalPages = computed(() => {
     max-width: 1444px;
     margin: 0 auto;
     position: relative;
-    padding: 70px clamp(1rem, 5vw, 6.5rem);
+    padding: 64px clamp(1rem, 5vw, 6.5rem) 70px clamp(1rem, 5vw, 6.5rem);
     display: flex;
     flex-direction: column;
     align-items: stretch;

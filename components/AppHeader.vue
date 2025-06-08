@@ -94,7 +94,7 @@ const isMenuOpen = ref(false);
 <style>
 .container {
   max-width: 1444px;
-  margin: 0 auto 70px auto;
+  margin: 0 auto 0 auto;
   position: relative;
   padding: 0 clamp(1rem, 5vw, 6.5rem);
   overflow-x: visible;
@@ -185,7 +185,7 @@ const isMenuOpen = ref(false);
   color: var(--text-primary);
   line-height: 70px;
   margin-bottom: 30px;
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.4px;
 }
 .description {
