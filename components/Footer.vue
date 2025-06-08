@@ -190,7 +190,7 @@
 .planet-image {
   width: 100%;
   max-width: 250px; /* Limit image size */
-  height: auto;
+  height: 182px;
   object-fit: cover;
   margin-bottom: 15px;
 }
@@ -311,14 +311,17 @@
   }
   .footer-bottom-bar {
     flex-direction: column; /* Stack copyright and utility links */
-    flex-flow: column-reverse;
     text-align: left;
     gap: 10px; /* Space between stacked items */
     padding-top: 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     align-items: flex-start;
   }
-
+  .planet-image {
+    min-width: 100%;
+    max-width: none;
+    height: 192px;
+  }
   .footer-main-content {
     display: flex;
     flex-direction: column;
