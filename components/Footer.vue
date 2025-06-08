@@ -63,8 +63,9 @@
             get us there.
           </p>
           <a href="#" class="learn-more-footer"
-            >Learn more <span class="arrow">›</span></a
-          >
+            >Learn more
+            <img class="arrow" src="/images/borderless-right-arrow.svg"
+          /></a>
         </div>
       </div>
 
@@ -207,8 +208,10 @@
   letter-spacing: 0.3px;
 }
 .learn-more-footer .arrow {
-  margin-left: 6px;
-  font-size: 16px;
+  width: 6px;
+  height: 10px;
+  margin-left: 7px;
+  margin-top: 2px;
 }
 
 .footer-social-media {
@@ -309,6 +312,7 @@
   }
   .footer-bottom-bar {
     flex-direction: column; /* Stack copyright and utility links */
+    flex-flow: column-reverse;
     text-align: left;
     gap: 10px; /* Space between stacked items */
     padding-top: 20px;
