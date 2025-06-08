@@ -8,7 +8,8 @@
           your projects
         </h1>
         <a href="#" class="find-out-more-link">
-          Find out more <span class="arrow">›</span>
+          Find out more
+          <img class="arrow" src="/images/borderless-right-arrow.svg" />
         </a>
       </div>
 
@@ -108,8 +109,10 @@
 }
 
 .find-out-more-link .arrow {
-  margin-left: 8px;
-  font-size: 20px;
+  width: 8px;
+  height: 10px;
+  margin-left: 7px;
+  margin-top: 2px;
 }
 
 .services-column {
