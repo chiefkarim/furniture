@@ -11,8 +11,7 @@
         or office. Find what<br />
         you need
       </p>
-      <!-- TODO: add loadeing indicators on the imags or have placeholders -->
-      <div class="">
+      <div class="carousel">
         <UCarousel
           ref="carouselRef"
           v-slot="{ item: room }"
@@ -20,7 +19,7 @@
           :align="'start'"
           :items="rooms"
           :ui="{
-            item: 'basis-full  lg:basis-1/2 shrink-0',
+            item: 'basis-full  lg:basis-1/2',
           }"
         >
           <div class="room-card">
@@ -33,20 +32,15 @@
             </div>
           </div>
         </UCarousel>
-        <button class="next-link" @click.prevent="goNext">
-          Next <span class="arrow">›</span>
-        </button>
       </div>
-    </div>
-
-    <!-- Pagination / Contrôles en bas -->
-    <div class="pagination-controls">
+      <div class="pagination-controls">
+        <span class="page-info">
+          {{ formattedCurrentPage }} / {{ formattedTotalPages }}
+        </span>
+      </div>
       <button class="next-link" @click.prevent="goNext">
         Next <span class="arrow">›</span>
       </button>
-      <span class="page-info">
-        {{ formattedCurrentPage }} / {{ formattedTotalPages }}
-      </span>
     </div>
   </section>
 </template>
@@ -165,12 +159,19 @@ const formattedTotalPages = computed(() => {
   color: var(--light-brown);
   letter-spacing: 0px;
   margin-top: 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+.carousel {
+  grid-column: 1;
+  grid-row: 2;
 }
 
 /* Conteneur des cartes, en colonne par défaut (mobile) */
 .room-cards-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr; /* 2 colonnes */
+  grid-template-rows: auto auto auto;
   gap: 24px;
   margin-top: 20px;
 }
@@ -181,12 +182,12 @@ const formattedTotalPages = computed(() => {
   flex-direction: row;
   background-color: transparent; /* Le fond beige est celui de .find-room-section */
   align-items: flex-start;
+  grid-row: 2;
 }
 
 /* Partie gauche : l’image et le titre de la pièce */
 .image-wrapper {
   position: relative;
-  flex-shrink: 0;
   width: 60%; /* 60% de la largeur de la carte */
   aspect-ratio: 3 / 4.2; /* Même ratio que sur la photo */
   border-radius: 1px;
@@ -196,6 +197,7 @@ const formattedTotalPages = computed(() => {
 .card-bg-image {
   width: 100%;
   height: 100%;
+  max-width: 100%;
   object-fit: cover;
   display: block;
 }
@@ -238,10 +240,10 @@ const formattedTotalPages = computed(() => {
 
 /* Pagination / contrôles en bas */
 .pagination-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 24px;
+  grid-row: 3;
+  grid-column: 1;
+  margin-top: 33px;
+  justify-self: end;
 }
 
 /* Bouton “Next ›” */
@@ -253,8 +255,10 @@ const formattedTotalPages = computed(() => {
   font-size: 16px;
   font-weight: 700;
   color: var(--text-primary);
-  display: flex;
-  align-items: center;
+  margin-top: 33px;
+  justify-self: start;
+  grid-row: 3;
+  grid-column: 1;
 }
 
 .next-link .arrow {
@@ -269,10 +273,9 @@ const formattedTotalPages = computed(() => {
   color: var(--brown-light);
   line-height: 25px;
   letter-spacing: 0;
+  display: block;
 }
-.room-cards-container .next-link {
-  display: none;
-}
+
 /* ---- Responsive Desktop (≥ 768px) pour 2 cartes côte à côte ---- */
 @media (min-width: 992px) {
   .container {
@@ -286,9 +289,9 @@ const formattedTotalPages = computed(() => {
   }
 
   .room-cards-container {
-    flex-direction: row;
     gap: 16px;
-
+    grid-template-columns: 0.3fr 1fr;
+    grid-template-rows: 1fr 0.2fr;
     margin-top: 48px;
   }
 
@@ -309,22 +312,27 @@ const formattedTotalPages = computed(() => {
   }
   .pagination-controls {
     margin-top: 48px;
-    width: 20%;
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
   }
   .room-cards-container .next-link {
-    display: block;
-    position: absolute;
-    bottom: 70px;
+    margin-top: 48px;
+    justify-self: start;
+    grid-column: 2;
+    grid-row: 2;
   }
-  .pagination-controls .next-link {
-    display: none;
-  }
+
   .news-arrivals-tag {
     color: var(--brown-light);
   }
   .info-text {
     width: auto;
     flex-shrink: 0;
+  }
+  .carousel {
+    grid-row: 1;
+    grid-column: 2;
   }
 }
 </style>
