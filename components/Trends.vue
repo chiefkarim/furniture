@@ -42,7 +42,8 @@
               :items="inspirationImages"
               :slidesToScroll="2"
               :ui="{
-                item: 'basis-[40%] ',
+                item: 'basis-[37%]',
+                container: 'gap-[30px]',
               }"
               class="inspiration-image-wrapper"
             >
@@ -63,25 +64,27 @@
             share that with you.
           </p>
           <div class="pagination-wrapper">
-            <div class="inspiration-pagination">
-              <button
-                class="nav-arrow prev-arrow"
-                @click="goPrev"
-                aria-label="Previous inspiration"
-              >
-                ‹
-              </button>
-              <button
-                class="nav-arrow next-arrow"
-                @click="goNext"
-                aria-label="Next inspiration"
-              >
-                ›
-              </button>
+            <div>
+              <div class="inspiration-pagination">
+                <button
+                  class="nav-arrow prev-arrow"
+                  @click="goPrev"
+                  aria-label="Previous inspiration"
+                >
+                  <img src="/images/left-arrow.svg" />
+                </button>
+                <button
+                  class="nav-arrow next-arrow"
+                  @click="goNext"
+                  aria-label="Next inspiration"
+                >
+                  <img src="/images/right-arrow.svg" />
+                </button>
+              </div>
+              <span class="page-info">
+                {{ formattedCurrentSlide }} / {{ formattedTotalSlides }}
+              </span>
             </div>
-            <span class="page-info">
-              {{ formattedCurrentSlide }} / {{ formattedTotalSlides }}
-            </span>
           </div>
         </div>
       </div>
@@ -252,6 +255,7 @@ function handleSubscription() {
   color: #00000073;
   outline: none;
   border-radius: 0;
+  height: 50px;
   line-height: 25px;
   font-weight: 400;
 }
@@ -266,6 +270,7 @@ function handleSubscription() {
   cursor: pointer;
   font-family: "Karla";
   font-size: 17px;
+  height: 50px;
   font-weight: 700;
   line-height: 25px;
   letter-spacing: 0.3px;
@@ -352,15 +357,11 @@ function handleSubscription() {
 .inspiration-pagination {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
+  margin-bottom: 20px;
 }
-.inspiration-pagination .nav-arrow,
-.inspiration-pagination .next-arrow {
-  width: 32px;
-  height: 32px;
-  font-size: 25px;
-}
-.inspiration-pagination .page-info {
+
+.page-info {
   font-size: 18px;
   color: var(--brown-light);
   line-height: 25px;
@@ -429,35 +430,15 @@ function handleSubscription() {
     gap: 16px;
     margin-bottom: 40px;
   }
+
   .nav-arrow {
-    background-color: transparent;
-    border: 2px solid var(--text-primary);
-    color: var(--text-primary);
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    line-height: 1;
     cursor: pointer;
-    transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
-  }
-  .nav-arrow:hover {
-    background-color: var(--text-primary);
-    color: var(--white);
-  }
-  .nav-arrow.prev-arrow {
-    margin-right: 8px;
-  }
-  .nav-arrow.next-arrow {
-    margin-left: 8px;
-  }
-  .page-info {
-    font-size: 18px;
-    color: var(--brown-light);
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
   }
 
   /* 5. Texte & disposition texte à droite */
@@ -489,12 +470,10 @@ function handleSubscription() {
   .pagination-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 20px;
   }
-  .inspiration-pagination {
-    margin-bottom: 20px;
-  }
+
   .inspiration-name {
     display: none;
   }

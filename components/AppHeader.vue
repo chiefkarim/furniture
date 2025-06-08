@@ -40,21 +40,7 @@
               trendy, quality furniture
             </p>
             <a href="#rooms" class="scroll-indicator">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19 9L12 16L5 9"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <img src="/images/scroll-down.svg" />
             </a>
           </div>
           <div class="hero-right">
@@ -187,23 +173,14 @@ const isMenuOpen = ref(false);
   letter-spacing: 0;
 }
 .scroll-indicator {
-  width: 44px;
-  height: 44px;
-  border: 1.5px solid var(--icon-color-primary);
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--icon-color-primary);
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease;
 }
-.scroll-indicator svg {
-  width: 20px;
-  height: 20px;
-}
+
 .scroll-indicator:hover {
   background-color: rgba(160, 96, 86, 0.05);
   border-color: #8c5046;
