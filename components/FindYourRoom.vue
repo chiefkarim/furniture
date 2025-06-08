@@ -6,10 +6,7 @@
     <!-- Conteneur des cartes -->
     <div class="room-cards-container">
       <p class="info-text">
-        Dining room,<br />
-        bedroom, bathroom <br />
-        or office. Find what<br />
-        you need
+        Dining room, bedroom, bathroom or office. Find what you need
       </p>
       <div class="carousel">
         <UCarousel
