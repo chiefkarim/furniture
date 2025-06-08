@@ -15,12 +15,12 @@
       <div class="">
         <UCarousel
           ref="carouselRef"
-          v-slot="{ item: room, index }"
+          v-slot="{ item: room }"
           loop
           :align="'start'"
           :items="rooms"
           :ui="{
-            item: 'basis-full  md:basis-1/2 shrink-0',
+            item: 'basis-full  lg:basis-1/2 shrink-0',
           }"
         >
           <div class="room-card">

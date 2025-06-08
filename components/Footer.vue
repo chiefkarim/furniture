@@ -59,7 +59,8 @@
           />
           <p>
             We’re taking positive steps to reduce our impact on the planet. For
-            us, that means retailing responsibly.
+            us, that means retailing responsibly. We’ve set a number of goals to
+            get us there.
           </p>
           <a href="#" class="learn-more-footer"
             >Learn more <span class="arrow">›</span></a
@@ -300,10 +301,6 @@
     /* Reset grid placement for stacking */
     grid-column: auto;
     margin-top: 0;
-  }
-  .planet-image {
-    margin-left: auto;
-    margin-right: auto;
   }
 
   .footer-social-media {

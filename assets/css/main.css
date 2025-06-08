@@ -2,6 +2,10 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+@theme {
+  --breakpoint-lg: 62rem;
+}
+
 :root {
   /* Color Palette */
   --text-primary: #a06056;

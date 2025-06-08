@@ -22,10 +22,7 @@
 
       <div class="inspirations-showcase">
         <div class="slider-viewport">
-          <div
-            class="slider-track"
-            :style="{ transform: `translateX(-${computedShift}%)` }"
-          >
+          <div class="slider-track">
             <div
               v-for="(image, index) in inspirationImages"
               :key="index"
@@ -36,6 +33,24 @@
               </div>
               <p class="inspiration-name">{{ image.name }}</p>
             </div>
+          </div>
+          <div class="trends-carousel">
+            <UCarousel
+              ref="carouselRef"
+              v-slot="{ item: image }"
+              :align="'start'"
+              :items="inspirationImages"
+              :slidesToScroll="2"
+              :ui="{
+                item: 'basis-[40%]',
+              }"
+              class="inspiration-image-wrapper"
+            >
+              <div class="inspiration-image-card">
+                <img :src="image.src" :alt="image.alt" />
+              </div>
+              <p class="inspiration-name">{{ image.name }}</p>
+            </UCarousel>
           </div>
         </div>
 
@@ -78,7 +93,7 @@
 import { ref, computed, onMounted, onUnmounted } from "vue";
 
 const email = ref("");
-
+const carouselRef = ref();
 // Données des images
 interface Inspiration {
   name: string;
@@ -111,81 +126,47 @@ const inspirationImages = ref<Inspiration[]>([
 // 1. Index du slide actuel (0-based)
 const currentIndex = ref(0);
 
-// 2. Nombre d’items visibles : 2.5 en desktop, 1.5 en tablet/mobile large
-const countVisible = ref(2.5);
-
 // 3. Calcul du nombre total de slides possibles
-const totalSlides = computed(() => {
-  const n = inspirationImages.value.length;
-  const maxIndex = Math.floor(n - countVisible.value);
-  return maxIndex >= 0 ? maxIndex + 1 : 1;
-});
-
-// 4. Chaque carte occupe (100% / countVisible) → décalage en pourcentage
-const slideShiftPercent = computed(() => {
-  return 100 / countVisible.value;
-});
-
-// 5. Calcul du “shift” effectif selon l’index :
-//    - Si ce n’est pas le dernier slide, shift = index * slideShiftPercent
-//    - Si c’est le dernier slide, on veut que la dernière image soit entièrement visible → shift spécial
-const computedShift = computed(() => {
-  const n = inspirationImages.value.length;
-  if (currentIndex.value < totalSlides.value - 1) {
-    return currentIndex.value * slideShiftPercent.value;
-  } else {
-    // Décalage pour aligner la dernière image en bord droit
-    // (n - countVisible) * (100 / countVisible)
-    return (n - countVisible.value) * slideShiftPercent.value;
-  }
-});
-
-// 6. Au redimensionnement, on ajuste countVisible
-function updateCountVisible() {
-  // < 768px → 1.5 cartes visibles, ≥ 768px → 2.5 cartes visibles
-  const newCount = window.innerWidth < 768 ? 1.5 : 2.5;
-  if (newCount !== countVisible.value) {
-    countVisible.value = newCount;
-    // Si l’index courant dépasse, on le recale
-    if (currentIndex.value > totalSlides.value - 1) {
-      currentIndex.value = totalSlides.value - 1;
-    }
-  }
+const totalSlides = ref(0);
+function formatSlideNumber(n: number): string {
+  return n < 10 ? "0" + n : String(n);
 }
 
+const formattedCurrentSlide = computed(() =>
+  formatSlideNumber(currentIndex.value + 1),
+);
+const formattedTotalSlides = computed(() =>
+  formatSlideNumber(totalSlides.value),
+);
+
 onMounted(() => {
-  updateCountVisible();
-  window.addEventListener("resize", updateCountVisible);
+  if (carouselRef.value) {
+    totalSlides.value = carouselRef.value.emblaApi.scrollSnapList().length;
+
+    carouselRef.value.emblaApi.on("select", () => {
+      currentIndex.value = carouselRef.value.emblaApi.selectedScrollSnap();
+    });
+  }
 });
+
 onUnmounted(() => {
-  window.removeEventListener("resize", updateCountVisible);
+  if (carouselRef.value) {
+    carouselRef.value.emblaApi.off("select");
+  }
 });
 
 // 7. Navigation “Prev” / “Next”
 function goNext() {
-  if (currentIndex.value < totalSlides.value - 1) {
-    currentIndex.value++;
-  } else {
-    currentIndex.value = 0;
-  }
-}
-function goPrev() {
-  if (currentIndex.value > 0) {
-    currentIndex.value--;
-  } else {
-    currentIndex.value = totalSlides.value - 1;
+  if (carouselRef.value) {
+    carouselRef.value.emblaApi.scrollNext();
   }
 }
 
-// 8. Pagination formatée (“01” / “05”)
-const formattedCurrentSlide = computed(() => {
-  const display = currentIndex.value + 1;
-  return display < 10 ? "0" + display : String(display);
-});
-const formattedTotalSlides = computed(() => {
-  const total = totalSlides.value;
-  return total < 10 ? "0" + total : String(total);
-});
+function goPrev() {
+  if (carouselRef.value) {
+    carouselRef.value.emblaApi.scrollPrev();
+  }
+}
 
 // 9. Formulaire d’abonnement (inchangé)
 function handleSubscription() {
@@ -335,6 +316,7 @@ function handleSubscription() {
   font-weight: 400;
   text-align: left;
   line-height: 20px;
+  margin-top: 15px;
 }
 
 .inspiration-text-content {
@@ -390,7 +372,9 @@ function handleSubscription() {
   box-sizing: border-box;
   text-align: left;
 }
-
+.trends-carousel {
+  display: none;
+}
 /* ----------------------------------------------------------- */
 /*                Styles “Desktop & Large Tablet”              */
 /*      (≥ 992px : on bascule sur le slider horizontal)        */
@@ -400,7 +384,9 @@ function handleSubscription() {
   .latest-trends-section {
     padding: 70px clamp(1rem, 5vw, 6.5rem);
   }
-
+  .trends-carousel {
+    display: block;
+  }
   .inspiration-images {
     display: none;
   }
@@ -418,7 +404,7 @@ function handleSubscription() {
 
   /* 2. Track contenant toutes les cartes en flex-row */
   .slider-track {
-    display: flex;
+    display: none;
     transition: transform 0.5s ease;
     gap: 40px;
   }

@@ -224,7 +224,7 @@ const isMenuOpen = ref(false);
   background-size: cover;
   background-position: center;
   position: absolute;
-  width: 45%;
+  width: 43%;
   height: 100%;
   right: 0;
 }
