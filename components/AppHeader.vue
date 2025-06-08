@@ -1,3 +1,10 @@
+<script setup lang="ts">
+import { ref } from "vue";
+import ArrowIcon from "~/assets/icons/scroll-down.svg";
+
+// Variable réactive pour savoir si le menu est ouvert (true) ou fermé (false)
+const isMenuOpen = ref(false);
+</script>
 <template>
   <div class="container-wrapper">
     <header class="container app-header">
@@ -40,7 +47,7 @@
               trendy, quality furniture
             </p>
             <a href="#rooms" class="scroll-indicator">
-              <img src="/images/scroll-down.svg" />
+              <ArrowIcon />
             </a>
           </div>
           <div class="hero-right">
@@ -57,12 +64,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from "vue";
-
-// Variable réactive pour savoir si le menu est ouvert (true) ou fermé (false)
-const isMenuOpen = ref(false);
-</script>
 <style>
 .container {
   max-width: 1444px;
@@ -172,19 +173,17 @@ const isMenuOpen = ref(false);
   margin-bottom: 48px;
   letter-spacing: 0;
 }
-.scroll-indicator {
+.scroll-indicator svg {
   width: 50px;
   height: 50px;
+  color: transparent;
   display: flex;
+  stroke: var(--text-primary);
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 
-.scroll-indicator:hover {
-  background-color: rgba(160, 96, 86, 0.05);
-  border-color: #8c5046;
-}
 .hero-right {
   background-image: url(/images/lights.jpg);
   background-size: cover;
@@ -243,10 +242,8 @@ const isMenuOpen = ref(false);
     font-family: var(--font-sans);
   }
 
-  .scroll-indicator {
-    border-color: white;
-    color: white;
-    background-color: transparent;
+  .scroll-indicator svg {
+    stroke: white;
   }
   .hero-left h1 {
     color: white;
@@ -373,8 +370,6 @@ const isMenuOpen = ref(false);
     list-style: 25px;
   }
   .scroll-indicator {
-    border-color: white;
-    color: white;
     background-color: transparent;
   }
 

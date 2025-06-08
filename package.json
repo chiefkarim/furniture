@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "embla-carousel": "^8.6.0",
-    "embla-carousel-vue": "^8.6.0"
+    "embla-carousel-vue": "^8.6.0",
+    "nuxt-svgo": "^4.2.2"
   }
 }
