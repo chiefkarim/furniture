@@ -93,6 +93,9 @@ const isMenuOpen = ref(false);
   flex-direction: column;
   justify-content: center;
   height: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .hero-section {
   display: flex;
