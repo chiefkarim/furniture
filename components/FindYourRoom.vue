@@ -277,7 +277,7 @@ const formattedTotalPages = computed(() => {
 }
 
 /* ---- Responsive Desktop (≥ 768px) pour 2 cartes côte à côte ---- */
-@media (min-width: 992px) {
+@media (min-width: 1030px) {
   .container {
     max-width: 1444px;
     margin: 0 auto;

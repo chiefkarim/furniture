@@ -143,7 +143,7 @@
   margin: 0;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1030px) {
   /* Mobile */
   .design-services-section {
     padding: 48px clamp(1rem, 5vw, 6.5rem);

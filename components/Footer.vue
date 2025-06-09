@@ -268,7 +268,7 @@
 
 /* --- Responsive Adjustments --- */
 
-@media (max-width: 992px) {
+@media (max-width: 1030px) {
   /* Mobile */
   .app-footer {
     padding: 40px 0 20px 0;

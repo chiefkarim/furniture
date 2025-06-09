@@ -383,7 +383,7 @@ img {
 /*                Styles “Desktop & Large Tablet”              */
 /*      (≥ 992px : on bascule sur le slider horizontal)        */
 /* ----------------------------------------------------------- */
-@media (min-width: 992px) {
+@media (min-width: 1030px) {
   /* On masque la grille mobile/tablet */
 
   .trends-carousel {

@@ -3,7 +3,7 @@
 @import "@nuxt/ui";
 
 @theme {
-  --breakpoint-lg: 62rem;
+  --breakpoint-lg: 64.375rem;
 }
 
 :root {

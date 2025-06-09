@@ -188,7 +188,7 @@ const isMenuOpen = ref(false);
   background-position: center;
   position: absolute;
   right: 0;
-  width: clamp(200px, 50%, 45%);
+  width: 50vw;
   height: 100vh;
 }
 .chat-icon {
@@ -210,7 +210,7 @@ const isMenuOpen = ref(false);
   height: 50px;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1030px) {
   .app-header {
     height: 100vh;
   }
