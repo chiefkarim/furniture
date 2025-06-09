@@ -1,5 +1,5 @@
 <template>
-  <div class="latest-trends-section">
+  <div class="latest-trends-section overflow-mask">
     <section class="container">
       <div class="trends-subscription">
         <div class="trends-info">
@@ -42,8 +42,9 @@
               :items="inspirationImages"
               :slidesToScroll="2"
               :ui="{
-                item: 'basis-[37%]',
-                container: 'gap-[30px]',
+                item: 'basis-[40%] overflow-visible',
+                container: 'gap-[30px] ',
+                viewport: 'overflow-visible',
               }"
               class="inspiration-image-wrapper"
             >
@@ -196,7 +197,9 @@ function handleSubscription() {
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
-
+img {
+  overflow: visible;
+}
 .trends-subscription {
   display: flex;
   flex-direction: column;
@@ -382,9 +385,7 @@ function handleSubscription() {
 /* ----------------------------------------------------------- */
 @media (min-width: 992px) {
   /* On masque la grille mobile/tablet */
-  .latest-trends-section {
-    padding: 70px clamp(1rem, 5vw, 6.5rem);
-  }
+
   .trends-carousel {
     display: block;
   }
@@ -396,12 +397,6 @@ function handleSubscription() {
   }
 
   /* 1. Viewport du slider */
-  .slider-viewport {
-    display: block;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-  }
 
   /* 2. Track contenant toutes les cartes en flex-row */
   .slider-track {
