@@ -206,7 +206,7 @@ const isMenuOpen = ref(false);
 
 .chat-icon {
   position: absolute;
-  top: 60px;
+  top: 50px;
   right: 50px;
   width: 44px;
   height: 44px;
@@ -371,9 +371,15 @@ const isMenuOpen = ref(false);
     align-items: center;
     text-align: center;
   }
+  .hero-left h1 {
+    margin-bottom: 24px;
+  }
   .logo {
     color: white;
     font-size: 34px;
+  }
+  .tagline {
+    margin-bottom: 24px;
   }
 
   .description {
@@ -381,6 +387,7 @@ const isMenuOpen = ref(false);
     font-weight: 400;
     font-size: 18px;
     list-style: 25px;
+    margin-bottom: 24px;
   }
   .scroll-indicator {
     background-color: transparent;
