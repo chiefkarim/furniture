@@ -1,5 +1,5 @@
 <template>
-  <div class="latest-trends-section overflow-mask">
+  <div class="latest-trends-section overflow-hidden">
     <section class="container">
       <div class="trends-subscription">
         <div class="trends-info">
