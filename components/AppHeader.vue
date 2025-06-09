@@ -192,6 +192,7 @@ const isMenuOpen = ref(false);
   color: transparent;
   display: flex;
   stroke: var(--text-primary);
+  stroke-width: 2px;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -209,7 +210,7 @@ const isMenuOpen = ref(false);
 
 .chat-icon {
   position: absolute;
-  top: 50px;
+  top: 40px;
   right: 50px;
   width: 44px;
   height: 44px;
