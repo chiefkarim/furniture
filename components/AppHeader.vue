@@ -68,14 +68,12 @@ const isMenuOpen = ref(false);
 .container {
   max-width: 1444px;
   margin: 0 auto 0 auto;
-  position: relative;
   padding: 0 clamp(1rem, 5vw, 6.5rem);
   overflow-x: visible;
 }
 .app-header {
   min-height: 100vh;
   display: flex;
-  position: relative;
   font-family: var(--font-sans);
 }
 .header-content-wrapper {
@@ -189,9 +187,9 @@ const isMenuOpen = ref(false);
   background-size: cover;
   background-position: center;
   position: absolute;
-  width: 50%;
-  height: 100%;
-  right: -20px;
+  right: 0;
+  width: clamp(200px, 50%, 45%);
+  height: 100vh;
 }
 .chat-icon {
   position: absolute;

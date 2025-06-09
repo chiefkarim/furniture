@@ -33,6 +33,7 @@ body {
   background-color: var(--bg-main); /* Default background for the whole page */
   color: var(--text-secondary); /* Default text color */
   line-height: 25px;
+  overflow-x: hidden;
 }
 
 *,
