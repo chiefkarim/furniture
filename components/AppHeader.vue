@@ -36,7 +36,7 @@ const isMenuOpen = ref(false);
             </div>
 
             <!-- Contenu principal (h1, description, etc.) -->
-            <div class="header-content-wrapper">
+            <div class="header-main-content">
               <p class="tagline">HOME DESIGN</p>
               <h1>
                 Elegance for<br />
@@ -74,6 +74,10 @@ const isMenuOpen = ref(false);
   padding: 0 clamp(1rem, 5vw, 6.5rem);
   overflow-x: visible;
 }
+.container-wrapper {
+  height: 100vh;
+}
+
 .app-header {
   min-height: 100vh;
   display: flex;
@@ -84,11 +88,11 @@ const isMenuOpen = ref(false);
   display: flex;
   flex-direction: column;
 }
-.header-content-wrapper {
+.header-main-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
+  height: 100%;
 }
 .hero-section {
   display: flex;
@@ -197,7 +201,7 @@ const isMenuOpen = ref(false);
   position: absolute;
   right: 0;
   width: 50vw;
-  height: 110vh;
+  height: 100vh;
 }
 
 .chat-icon {
@@ -231,7 +235,7 @@ const isMenuOpen = ref(false);
     z-index: 1;
     background-color: #70645833;
   }
-  .header-content-wrapper {
+  .header-main-content {
     align-items: center;
     height: auto;
   }
@@ -360,7 +364,7 @@ const isMenuOpen = ref(false);
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     z-index: 1;
   }
   .hero-left {
