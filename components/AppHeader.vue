@@ -36,22 +36,24 @@ const isMenuOpen = ref(false);
             </div>
 
             <!-- Contenu principal (h1, description, etc.) -->
-            <p class="tagline">HOME DESIGN</p>
-            <h1>
-              Elegance for<br />
-              Interiors &<br />
-              Exteriors
-            </h1>
-            <p class="description">
-              We provide everyone with modern,<br />
-              trendy, quality furniture
-            </p>
-            <a href="#rooms" class="scroll-indicator">
-              <ArrowIcon />
-            </a>
-          </div>
-          <div class="hero-right">
-            <!-- L’image de fond viendra ici -->
+            <div class="header-content-wrapper">
+              <p class="tagline">HOME DESIGN</p>
+              <h1>
+                Elegance for<br />
+                Interiors &<br />
+                Exteriors
+              </h1>
+              <p class="description">
+                We provide everyone with modern,<br />
+                trendy, quality furniture
+              </p>
+              <a href="#rooms" class="scroll-indicator">
+                <ArrowIcon />
+              </a>
+            </div>
+            <div class="hero-right">
+              <!-- L’image de fond viendra ici -->
+            </div>
           </div>
         </div>
       </div>
@@ -76,11 +78,15 @@ const isMenuOpen = ref(false);
   display: flex;
   font-family: var(--font-sans);
 }
+
 .header-content-wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
+
 .hero-section {
   display: flex;
   flex-grow: 1;
@@ -92,14 +98,14 @@ const isMenuOpen = ref(false);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  min-height: 100%;
+  min-height: 100vh;
 }
+
 .top-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 110px;
   margin-top: 25px;
   position: relative; /* pour que le menu en absolute se réfère à cette zone */
 }
@@ -189,12 +195,13 @@ const isMenuOpen = ref(false);
   position: absolute;
   right: 0;
   width: 50vw;
-  height: 100vh;
+  height: 110vh;
 }
+
 .chat-icon {
   position: absolute;
   top: 60px;
-  right: 8px;
+  right: 50px;
   width: 44px;
   height: 44px;
   display: flex;
@@ -202,7 +209,6 @@ const isMenuOpen = ref(false);
   justify-content: center;
   cursor: pointer;
   z-index: 20;
-  padding: 0;
 }
 
 .chat-icon img {

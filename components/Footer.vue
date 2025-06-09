@@ -315,7 +315,6 @@
     flex-flow: column-reverse;
     text-align: left;
     gap: 10px; /* Space between stacked items */
-    padding-top: 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     align-items: flex-start;
   }
