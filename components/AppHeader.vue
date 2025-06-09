@@ -51,9 +51,10 @@ const isMenuOpen = ref(false);
                 <ArrowIcon />
               </a>
             </div>
-            <div class="hero-right">
-              <!-- L’image de fond viendra ici -->
-            </div>
+          </div>
+
+          <div class="hero-right">
+            <!-- L’image de fond viendra ici -->
           </div>
         </div>
       </div>
@@ -78,15 +79,17 @@ const isMenuOpen = ref(false);
   display: flex;
   font-family: var(--font-sans);
 }
-
 .header-content-wrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100%;
 }
-
+.header-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
 .hero-section {
   display: flex;
   flex-grow: 1;
@@ -98,9 +101,8 @@ const isMenuOpen = ref(false);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  min-height: 100vh;
+  min-height: 100%;
 }
-
 .top-nav {
   display: flex;
   justify-content: space-between;
@@ -227,6 +229,11 @@ const isMenuOpen = ref(false);
     width: 100%;
     height: 100vh;
     z-index: 1;
+    background-color: #70645833;
+  }
+  .header-content-wrapper {
+    align-items: center;
+    height: auto;
   }
   .hero-left {
     z-index: 2;
