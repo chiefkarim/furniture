@@ -8,7 +8,7 @@
       <p class="info-text">
         Dining room, bedroom, bathroom or office. Find what you need
       </p>
-      <div class="carousel">
+      <div class="carousel overflow-hidden">
         <UCarousel
           ref="carouselRef"
           v-slot="{ item: room }"
@@ -16,8 +16,10 @@
           :align="'start'"
           :items="rooms"
           :ui="{
-            item: 'basis-full  lg:basis-1/2',
+            item: 'basis-full shrink-0  lg:basis-1/2',
+            viewport: 'overflow-hidden',
           }"
+          class="overflow-hidden"
         >
           <div class="room-card">
             <div class="image-wrapper">
@@ -55,7 +57,6 @@ const rooms = ref<Room[]>([
   { name: "Bedroom", image: "/images/bed-room-card.png" },
   { name: "Living<br/>room", image: "/images/living-room-card.jpg" },
   { name: "Bedroom 2", image: "/images/bed-room-card.png" },
-  { name: "Living<br/>room 2", image: "/images/living-room-card.jpg" },
 ]);
 
 // 2. Pagination
