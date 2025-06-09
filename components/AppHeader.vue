@@ -237,7 +237,6 @@ const isMenuOpen = ref(false);
   }
   .header-main-content {
     align-items: center;
-    height: auto;
   }
   .hero-left {
     z-index: 2;
@@ -357,7 +356,6 @@ const isMenuOpen = ref(false);
     height: 100vh;
   }
   .container-wrapper {
-    background-color: #70645833;
   }
   .hero-right {
     position: absolute;
